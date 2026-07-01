@@ -1,0 +1,10 @@
+{
+"SpaProxyServer": {
+"ServerUrl": "https://localhost:50171",
+"RedirectUrl": "",
+"LaunchCommand": "npm run dev",
+"WorkingDirectory": "C:\\Users\\mehmet.kahramanoglu\\Desktop\\SESMAN\\SESMAN.Server\\..\\sesman.client",
+"MaxTimeoutInSeconds": "120",
+"KeepRunning": "false"
+}
+}

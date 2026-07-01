@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="sesman.client/sesman.client.esproj">
+    <Build />
+    <Deploy />
+  </Project>
+  <Project Path="SESMAN.Server/SESMAN.Server.csproj" />
+</Solution>
