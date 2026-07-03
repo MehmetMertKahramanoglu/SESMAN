@@ -1,0 +1,12 @@
+C:\Users\mehmet.kahramanoglu\Desktop\SESMAN\SESMAN.Domain\bin\Debug\net10.0\SESMAN.Domain.deps.json
+C:\Users\mehmet.kahramanoglu\Desktop\SESMAN\SESMAN.Domain\bin\Debug\net10.0\SESMAN.Domain.dll
+C:\Users\mehmet.kahramanoglu\Desktop\SESMAN\SESMAN.Domain\bin\Debug\net10.0\SESMAN.Domain.pdb
+C:\Users\mehmet.kahramanoglu\Desktop\SESMAN\SESMAN.Domain\obj\Debug\net10.0\SESMAN.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\mehmet.kahramanoglu\Desktop\SESMAN\SESMAN.Domain\obj\Debug\net10.0\SESMAN.Domain.AssemblyInfoInputs.cache
+C:\Users\mehmet.kahramanoglu\Desktop\SESMAN\SESMAN.Domain\obj\Debug\net10.0\SESMAN.Domain.AssemblyInfo.cs
+C:\Users\mehmet.kahramanoglu\Desktop\SESMAN\SESMAN.Domain\obj\Debug\net10.0\SESMAN.Domain.csproj.CoreCompileInputs.cache
+C:\Users\mehmet.kahramanoglu\Desktop\SESMAN\SESMAN.Domain\obj\Debug\net10.0\SESMAN.Domain.sourcelink.json
+C:\Users\mehmet.kahramanoglu\Desktop\SESMAN\SESMAN.Domain\obj\Debug\net10.0\SESMAN.Domain.dll
+C:\Users\mehmet.kahramanoglu\Desktop\SESMAN\SESMAN.Domain\obj\Debug\net10.0\refint\SESMAN.Domain.dll
+C:\Users\mehmet.kahramanoglu\Desktop\SESMAN\SESMAN.Domain\obj\Debug\net10.0\SESMAN.Domain.pdb
+C:\Users\mehmet.kahramanoglu\Desktop\SESMAN\SESMAN.Domain\obj\Debug\net10.0\ref\SESMAN.Domain.dll
