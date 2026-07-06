@@ -12,7 +12,7 @@ namespace SESMAN.Infrastructure
         {
         }
 
-        public DbSet<RequestLog> HistoryLogs { get; set; } //bunun adını HistoryLogs yapıp, application layerda sonradan birleştirme yapacağım.
+        public DbSet<RequestLog> RequestLogs { get; set; } 
         public DbSet<ResponseLog> ResponseLogs  { get; set; }
         public DbSet<RequestHeader> RequestHeaders  { get; set; }
         public DbSet<ResponseHeader> ResponseHeaders  { get; set; }
@@ -25,6 +25,10 @@ namespace SESMAN.Infrastructure
                 .WithOne()
                 .HasForeignKey<ResponseLog>(res => res.RequestLogId)
                 .OnDelete(DeleteBehavior.Cascade); // İstek silinirse, cevabı da veritabanından silinsin
+
+            modelBuilder.Entity<RequestLog>() //enum yapısında normalde int değer döneceği için okumayı kolaylaştırması için stringe döndürüyorum. (2 yerine post yazacak.)
+                .Property(r => r.Method)
+                .HasConversion<string>();
         }
     }
         
