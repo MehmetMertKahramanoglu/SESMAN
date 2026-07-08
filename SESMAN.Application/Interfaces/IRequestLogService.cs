@@ -2,13 +2,9 @@
 
 namespace SESMAN.Application.Interfaces
 {
-    public interface IRequestLogService
+    public interface IRequestLogService : IBaseService<RequestLogDto, CreateLogDto, UpdateLogDto>
     {
-        Task<List<RequestLogDto>> GetAllAsync();
-        Task<RequestLogDto?> GetByIdAsync(Guid id);
-        Task CreateAsync(CreateLogDto dto);
-        Task UpdateAsync(Guid id, UpdateLogDto dto);
+        // BaseService'te olmayan PATCH kısmını ekledim
         Task PatchAsync(Guid id, UpdateLogDto dto);
-        Task DeleteAsync(Guid id);
     }
 }

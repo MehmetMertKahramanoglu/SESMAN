@@ -10,6 +10,7 @@ namespace SESMAN.Application.DTOs
         public string? Url { get; set; }
         public string? Method { get; set; }
 
+        //sadece body olarak dönüştür !!!!!
         public string? RequestBody { get; set; }
         public DateTime CreatedAt { get; set; }
 

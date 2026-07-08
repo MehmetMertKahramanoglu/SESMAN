@@ -10,8 +10,4 @@
     <ProjectReference Include="..\SESMAN.Domain\SESMAN.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Mapper\" />
-  </ItemGroup>
-
 </Project>
