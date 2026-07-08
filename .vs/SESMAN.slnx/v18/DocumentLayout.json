@@ -3,44 +3,104 @@
   "WorkspaceRootPath": "C:\\Users\\mehmet.kahramanoglu\\Desktop\\SESMAN\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\mehmet.kahramanoglu\\Desktop\\SESMAN\\SESMAN.Infrastructure\\Migrations\\20260706103951_BugFixed.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:SESMAN.Infrastructure\\Migrations\\20260706103951_BugFixed.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E86EEC04-DA1C-4D23-9C40-82D39F4181B0}|SESMAN.Application\\SESMAN.Application.csproj|c:\\users\\mehmet.kahramanoglu\\desktop\\sesman\\sesman.application\\services\\requestlogservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E86EEC04-DA1C-4D23-9C40-82D39F4181B0}|SESMAN.Application\\SESMAN.Application.csproj|solutionrelative:sesman.application\\services\\requestlogservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B400FBD0-75A2-48AC-BA8C-678B02C59476}|SESMAN.Infrastructure\\SESMAN.Infrastructure.csproj|c:\\users\\mehmet.kahramanoglu\\desktop\\sesman\\sesman.infrastructure\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B400FBD0-75A2-48AC-BA8C-678B02C59476}|SESMAN.Infrastructure\\SESMAN.Infrastructure.csproj|solutionrelative:sesman.infrastructure\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B400FBD0-75A2-48AC-BA8C-678B02C59476}|SESMAN.Infrastructure\\SESMAN.Infrastructure.csproj|c:\\users\\mehmet.kahramanoglu\\desktop\\sesman\\sesman.infrastructure\\repositories\\requestlogrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B400FBD0-75A2-48AC-BA8C-678B02C59476}|SESMAN.Infrastructure\\SESMAN.Infrastructure.csproj|solutionrelative:sesman.infrastructure\\repositories\\requestlogrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B400FBD0-75A2-48AC-BA8C-678B02C59476}|SESMAN.Infrastructure\\SESMAN.Infrastructure.csproj|c:\\users\\mehmet.kahramanoglu\\desktop\\sesman\\sesman.infrastructure\\migrations\\20260703130409_ilkmigration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B400FBD0-75A2-48AC-BA8C-678B02C59476}|SESMAN.Infrastructure\\SESMAN.Infrastructure.csproj|solutionrelative:sesman.infrastructure\\migrations\\20260703130409_ilkmigration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{52D22B31-E7C6-1166-A471-8A6D6E9C2154}|SESMAN.Server\\SESMAN.Server.csproj|c:\\users\\mehmet.kahramanoglu\\desktop\\sesman\\sesman.server\\controllers\\requestlogcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{52D22B31-E7C6-1166-A471-8A6D6E9C2154}|SESMAN.Server\\SESMAN.Server.csproj|solutionrelative:sesman.server\\controllers\\requestlogcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B400FBD0-75A2-48AC-BA8C-678B02C59476}|SESMAN.Infrastructure\\SESMAN.Infrastructure.csproj|c:\\users\\mehmet.kahramanoglu\\desktop\\sesman\\sesman.infrastructure\\migrations\\appdbcontextmodelsnapshot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B400FBD0-75A2-48AC-BA8C-678B02C59476}|SESMAN.Infrastructure\\SESMAN.Infrastructure.csproj|solutionrelative:sesman.infrastructure\\migrations\\appdbcontextmodelsnapshot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{2B44471E-159B-4D48-9A67-50524C3C655A}|SESMAN.Domain\\SESMAN.Domain.csproj|c:\\users\\mehmet.kahramanoglu\\desktop\\sesman\\sesman.domain\\entities\\requestlog.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2B44471E-159B-4D48-9A67-50524C3C655A}|SESMAN.Domain\\SESMAN.Domain.csproj|solutionrelative:sesman.domain\\entities\\requestlog.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B400FBD0-75A2-48AC-BA8C-678B02C59476}|SESMAN.Infrastructure\\SESMAN.Infrastructure.csproj|c:\\users\\mehmet.kahramanoglu\\desktop\\sesman\\sesman.infrastructure\\sesman.infrastructure.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
-      "RelativeMoniker": "D:0:0:{B400FBD0-75A2-48AC-BA8C-678B02C59476}|SESMAN.Infrastructure\\SESMAN.Infrastructure.csproj|solutionrelative:sesman.infrastructure\\sesman.infrastructure.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+      "AbsoluteMoniker": "D:0:0:{2B44471E-159B-4D48-9A67-50524C3C655A}|SESMAN.Domain\\SESMAN.Domain.csproj|c:\\users\\mehmet.kahramanoglu\\desktop\\sesman\\sesman.domain\\entities\\responselog.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2B44471E-159B-4D48-9A67-50524C3C655A}|SESMAN.Domain\\SESMAN.Domain.csproj|solutionrelative:sesman.domain\\entities\\responselog.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E86EEC04-DA1C-4D23-9C40-82D39F4181B0}|SESMAN.Application\\SESMAN.Application.csproj|c:\\users\\mehmet.kahramanoglu\\desktop\\sesman\\sesman.application\\dtos\\headerdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E86EEC04-DA1C-4D23-9C40-82D39F4181B0}|SESMAN.Application\\SESMAN.Application.csproj|solutionrelative:sesman.application\\dtos\\headerdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E86EEC04-DA1C-4D23-9C40-82D39F4181B0}|SESMAN.Application\\SESMAN.Application.csproj|c:\\users\\mehmet.kahramanoglu\\desktop\\sesman\\sesman.application\\dtos\\updatelogdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E86EEC04-DA1C-4D23-9C40-82D39F4181B0}|SESMAN.Application\\SESMAN.Application.csproj|solutionrelative:sesman.application\\dtos\\updatelogdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E86EEC04-DA1C-4D23-9C40-82D39F4181B0}|SESMAN.Application\\SESMAN.Application.csproj|c:\\users\\mehmet.kahramanoglu\\desktop\\sesman\\sesman.application\\dtos\\createlogdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E86EEC04-DA1C-4D23-9C40-82D39F4181B0}|SESMAN.Application\\SESMAN.Application.csproj|solutionrelative:sesman.application\\dtos\\createlogdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E86EEC04-DA1C-4D23-9C40-82D39F4181B0}|SESMAN.Application\\SESMAN.Application.csproj|c:\\users\\mehmet.kahramanoglu\\desktop\\sesman\\sesman.application\\dtos\\requestlogdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E86EEC04-DA1C-4D23-9C40-82D39F4181B0}|SESMAN.Application\\SESMAN.Application.csproj|solutionrelative:sesman.application\\dtos\\requestlogdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E86EEC04-DA1C-4D23-9C40-82D39F4181B0}|SESMAN.Application\\SESMAN.Application.csproj|c:\\users\\mehmet.kahramanoglu\\desktop\\sesman\\sesman.application\\dtos\\parameterdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E86EEC04-DA1C-4D23-9C40-82D39F4181B0}|SESMAN.Application\\SESMAN.Application.csproj|solutionrelative:sesman.application\\dtos\\parameterdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E86EEC04-DA1C-4D23-9C40-82D39F4181B0}|SESMAN.Application\\SESMAN.Application.csproj|c:\\users\\mehmet.kahramanoglu\\desktop\\sesman\\sesman.application\\interfaces\\irequestlogservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E86EEC04-DA1C-4D23-9C40-82D39F4181B0}|SESMAN.Application\\SESMAN.Application.csproj|solutionrelative:sesman.application\\interfaces\\irequestlogservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{2B44471E-159B-4D48-9A67-50524C3C655A}|SESMAN.Domain\\SESMAN.Domain.csproj|c:\\users\\mehmet.kahramanoglu\\desktop\\sesman\\sesman.domain\\enums\\httpmethodtype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{2B44471E-159B-4D48-9A67-50524C3C655A}|SESMAN.Domain\\SESMAN.Domain.csproj|solutionrelative:sesman.domain\\enums\\httpmethodtype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{E86EEC04-DA1C-4D23-9C40-82D39F4181B0}|SESMAN.Application\\SESMAN.Application.csproj|c:\\users\\mehmet.kahramanoglu\\desktop\\sesman\\sesman.application\\interfaces\\irequestlogrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E86EEC04-DA1C-4D23-9C40-82D39F4181B0}|SESMAN.Application\\SESMAN.Application.csproj|solutionrelative:sesman.application\\interfaces\\irequestlogrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{52D22B31-E7C6-1166-A471-8A6D6E9C2154}|SESMAN.Server\\SESMAN.Server.csproj|c:\\users\\mehmet.kahramanoglu\\desktop\\sesman\\sesman.server\\controllers\\weatherforecastcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{52D22B31-E7C6-1166-A471-8A6D6E9C2154}|SESMAN.Server\\SESMAN.Server.csproj|solutionrelative:sesman.server\\controllers\\weatherforecastcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2B44471E-159B-4D48-9A67-50524C3C655A}|SESMAN.Domain\\SESMAN.Domain.csproj|c:\\users\\mehmet.kahramanoglu\\desktop\\sesman\\sesman.domain\\entities\\responseheader.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2B44471E-159B-4D48-9A67-50524C3C655A}|SESMAN.Domain\\SESMAN.Domain.csproj|solutionrelative:sesman.domain\\entities\\responseheader.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2B44471E-159B-4D48-9A67-50524C3C655A}|SESMAN.Domain\\SESMAN.Domain.csproj|c:\\users\\mehmet.kahramanoglu\\desktop\\sesman\\sesman.domain\\entities\\requestheader.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2B44471E-159B-4D48-9A67-50524C3C655A}|SESMAN.Domain\\SESMAN.Domain.csproj|solutionrelative:sesman.domain\\entities\\requestheader.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{2B44471E-159B-4D48-9A67-50524C3C655A}|SESMAN.Domain\\SESMAN.Domain.csproj|c:\\users\\mehmet.kahramanoglu\\desktop\\sesman\\sesman.domain\\entities\\baseentity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{2B44471E-159B-4D48-9A67-50524C3C655A}|SESMAN.Domain\\SESMAN.Domain.csproj|solutionrelative:sesman.domain\\entities\\baseentity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{52D22B31-E7C6-1166-A471-8A6D6E9C2154}|SESMAN.Server\\SESMAN.Server.csproj|c:\\users\\mehmet.kahramanoglu\\desktop\\sesman\\sesman.server\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{52D22B31-E7C6-1166-A471-8A6D6E9C2154}|SESMAN.Server\\SESMAN.Server.csproj|solutionrelative:sesman.server\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+      "AbsoluteMoniker": "D:0:0:{B400FBD0-75A2-48AC-BA8C-678B02C59476}|SESMAN.Infrastructure\\SESMAN.Infrastructure.csproj|c:\\users\\mehmet.kahramanoglu\\desktop\\sesman\\sesman.infrastructure\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B400FBD0-75A2-48AC-BA8C-678B02C59476}|SESMAN.Infrastructure\\SESMAN.Infrastructure.csproj|solutionrelative:sesman.infrastructure\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2B44471E-159B-4D48-9A67-50524C3C655A}|SESMAN.Domain\\SESMAN.Domain.csproj|c:\\users\\mehmet.kahramanoglu\\desktop\\sesman\\sesman.domain\\entities\\requestparameter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2B44471E-159B-4D48-9A67-50524C3C655A}|SESMAN.Domain\\SESMAN.Domain.csproj|solutionrelative:sesman.domain\\entities\\requestparameter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B400FBD0-75A2-48AC-BA8C-678B02C59476}|SESMAN.Infrastructure\\SESMAN.Infrastructure.csproj|c:\\users\\mehmet.kahramanoglu\\desktop\\sesman\\sesman.infrastructure\\sesman.infrastructure.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{B400FBD0-75A2-48AC-BA8C-678B02C59476}|SESMAN.Infrastructure\\SESMAN.Infrastructure.csproj|solutionrelative:sesman.infrastructure\\sesman.infrastructure.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
     },
     {
       "AbsoluteMoniker": "D:0:0:{52D22B31-E7C6-1166-A471-8A6D6E9C2154}|SESMAN.Server\\SESMAN.Server.csproj|c:\\users\\mehmet.kahramanoglu\\desktop\\sesman\\sesman.server\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{52D22B31-E7C6-1166-A471-8A6D6E9C2154}|SESMAN.Server\\SESMAN.Server.csproj|solutionrelative:sesman.server\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{52D22B31-E7C6-1166-A471-8A6D6E9C2154}|SESMAN.Server\\SESMAN.Server.csproj|c:\\users\\mehmet.kahramanoglu\\desktop\\sesman\\sesman.server\\sesman.server.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
-      "RelativeMoniker": "D:0:0:{52D22B31-E7C6-1166-A471-8A6D6E9C2154}|SESMAN.Server\\SESMAN.Server.csproj|solutionrelative:sesman.server\\sesman.server.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+      "AbsoluteMoniker": "D:0:0:{52D22B31-E7C6-1166-A471-8A6D6E9C2154}|SESMAN.Server\\SESMAN.Server.csproj|c:\\users\\mehmet.kahramanoglu\\desktop\\sesman\\sesman.server\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{52D22B31-E7C6-1166-A471-8A6D6E9C2154}|SESMAN.Server\\SESMAN.Server.csproj|solutionrelative:sesman.server\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{52D22B31-E7C6-1166-A471-8A6D6E9C2154}|SESMAN.Server\\SESMAN.Server.csproj|c:\\users\\mehmet.kahramanoglu\\desktop\\sesman\\sesman.server\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{52D22B31-E7C6-1166-A471-8A6D6E9C2154}|SESMAN.Server\\SESMAN.Server.csproj|solutionrelative:sesman.server\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{52D22B31-E7C6-1166-A471-8A6D6E9C2154}|SESMAN.Server\\SESMAN.Server.csproj|c:\\users\\mehmet.kahramanoglu\\desktop\\sesman\\sesman.server\\changelog.md||{EFC0BB08-EA7D-40C6-A696-C870411A895B}",
+      "RelativeMoniker": "D:0:0:{52D22B31-E7C6-1166-A471-8A6D6E9C2154}|SESMAN.Server\\SESMAN.Server.csproj|solutionrelative:sesman.server\\changelog.md||{EFC0BB08-EA7D-40C6-A696-C870411A895B}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{52D22B31-E7C6-1166-A471-8A6D6E9C2154}|SESMAN.Server\\SESMAN.Server.csproj|c:\\users\\mehmet.kahramanoglu\\desktop\\sesman\\sesman.server\\sesman.server.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}",
+      "RelativeMoniker": "D:0:0:{52D22B31-E7C6-1166-A471-8A6D6E9C2154}|SESMAN.Server\\SESMAN.Server.csproj|solutionrelative:sesman.server\\sesman.server.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}"
     }
   ],
   "DocumentGroupContainers": [
@@ -50,136 +110,320 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "20260706103951_BugFixed.cs",
-              "DocumentMoniker": "C:\\Users\\mehmet.kahramanoglu\\Desktop\\SESMAN\\SESMAN.Infrastructure\\Migrations\\20260706103951_BugFixed.cs",
-              "RelativeDocumentMoniker": "SESMAN.Infrastructure\\Migrations\\20260706103951_BugFixed.cs",
-              "ToolTip": "C:\\Users\\mehmet.kahramanoglu\\Desktop\\SESMAN\\SESMAN.Infrastructure\\Migrations\\20260706103951_BugFixed.cs",
-              "RelativeToolTip": "SESMAN.Infrastructure\\Migrations\\20260706103951_BugFixed.cs",
-              "ViewState": "AgIAACIAAAAAAAAAAAAQwBwAAAApAAAAAAAAAA==",
+              "DocumentIndex": 5,
+              "Title": "HeaderDto.cs",
+              "DocumentMoniker": "C:\\Users\\mehmet.kahramanoglu\\Desktop\\SESMAN\\SESMAN.Application\\DTOs\\HeaderDto.cs",
+              "RelativeDocumentMoniker": "SESMAN.Application\\DTOs\\HeaderDto.cs",
+              "ToolTip": "C:\\Users\\mehmet.kahramanoglu\\Desktop\\SESMAN\\SESMAN.Application\\DTOs\\HeaderDto.cs",
+              "RelativeToolTip": "SESMAN.Application\\DTOs\\HeaderDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-06T10:39:51.847Z",
+              "WhenOpened": "2026-07-08T05:04:50.071Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "RequestLogDto.cs",
+              "DocumentMoniker": "C:\\Users\\mehmet.kahramanoglu\\Desktop\\SESMAN\\SESMAN.Application\\DTOs\\RequestLogDto.cs",
+              "RelativeDocumentMoniker": "SESMAN.Application\\DTOs\\RequestLogDto.cs",
+              "ToolTip": "C:\\Users\\mehmet.kahramanoglu\\Desktop\\SESMAN\\SESMAN.Application\\DTOs\\RequestLogDto.cs",
+              "RelativeToolTip": "SESMAN.Application\\DTOs\\RequestLogDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAABDAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-08T04:22:49.546Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "UpdateLogDto.cs",
+              "DocumentMoniker": "C:\\Users\\mehmet.kahramanoglu\\Desktop\\SESMAN\\SESMAN.Application\\DTOs\\UpdateLogDto.cs",
+              "RelativeDocumentMoniker": "SESMAN.Application\\DTOs\\UpdateLogDto.cs",
+              "ToolTip": "C:\\Users\\mehmet.kahramanoglu\\Desktop\\SESMAN\\SESMAN.Application\\DTOs\\UpdateLogDto.cs",
+              "RelativeToolTip": "SESMAN.Application\\DTOs\\UpdateLogDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAABEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-08T04:22:36.278Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "CreateLogDto.cs",
+              "DocumentMoniker": "C:\\Users\\mehmet.kahramanoglu\\Desktop\\SESMAN\\SESMAN.Application\\DTOs\\CreateLogDto.cs",
+              "RelativeDocumentMoniker": "SESMAN.Application\\DTOs\\CreateLogDto.cs",
+              "ToolTip": "C:\\Users\\mehmet.kahramanoglu\\Desktop\\SESMAN\\SESMAN.Application\\DTOs\\CreateLogDto.cs",
+              "RelativeToolTip": "SESMAN.Application\\DTOs\\CreateLogDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAABEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-08T04:22:25.101Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "RequestLogService.cs",
+              "DocumentMoniker": "C:\\Users\\mehmet.kahramanoglu\\Desktop\\SESMAN\\SESMAN.Application\\Services\\RequestLogService.cs",
+              "RelativeDocumentMoniker": "SESMAN.Application\\Services\\RequestLogService.cs",
+              "ToolTip": "C:\\Users\\mehmet.kahramanoglu\\Desktop\\SESMAN\\SESMAN.Application\\Services\\RequestLogService.cs",
+              "RelativeToolTip": "SESMAN.Application\\Services\\RequestLogService.cs",
+              "ViewState": "AgIAAFsAAAAAAAAAAAAcwG0AAAB6AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-06T11:50:04.002Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "20260703130409_IlkMigration.cs",
-              "DocumentMoniker": "C:\\Users\\mehmet.kahramanoglu\\Desktop\\SESMAN\\SESMAN.Infrastructure\\Migrations\\20260703130409_IlkMigration.cs",
-              "RelativeDocumentMoniker": "SESMAN.Infrastructure\\Migrations\\20260703130409_IlkMigration.cs",
-              "ToolTip": "C:\\Users\\mehmet.kahramanoglu\\Desktop\\SESMAN\\SESMAN.Infrastructure\\Migrations\\20260703130409_IlkMigration.cs",
-              "RelativeToolTip": "SESMAN.Infrastructure\\Migrations\\20260703130409_IlkMigration.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Title": "RequestLogController.cs",
+              "DocumentMoniker": "C:\\Users\\mehmet.kahramanoglu\\Desktop\\SESMAN\\SESMAN.Server\\Controllers\\RequestLogController.cs",
+              "RelativeDocumentMoniker": "SESMAN.Server\\Controllers\\RequestLogController.cs",
+              "ToolTip": "C:\\Users\\mehmet.kahramanoglu\\Desktop\\SESMAN\\SESMAN.Server\\Controllers\\RequestLogController.cs",
+              "RelativeToolTip": "SESMAN.Server\\Controllers\\RequestLogController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-06T10:29:41.828Z",
+              "WhenOpened": "2026-07-07T08:47:13.817Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "AppDbContextModelSnapshot.cs",
-              "DocumentMoniker": "C:\\Users\\mehmet.kahramanoglu\\Desktop\\SESMAN\\SESMAN.Infrastructure\\Migrations\\AppDbContextModelSnapshot.cs",
-              "RelativeDocumentMoniker": "SESMAN.Infrastructure\\Migrations\\AppDbContextModelSnapshot.cs",
-              "ToolTip": "C:\\Users\\mehmet.kahramanoglu\\Desktop\\SESMAN\\SESMAN.Infrastructure\\Migrations\\AppDbContextModelSnapshot.cs",
-              "RelativeToolTip": "SESMAN.Infrastructure\\Migrations\\AppDbContextModelSnapshot.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 1,
+              "Title": "RequestLogRepository.cs",
+              "DocumentMoniker": "C:\\Users\\mehmet.kahramanoglu\\Desktop\\SESMAN\\SESMAN.Infrastructure\\Repositories\\RequestLogRepository.cs",
+              "RelativeDocumentMoniker": "SESMAN.Infrastructure\\Repositories\\RequestLogRepository.cs",
+              "ToolTip": "C:\\Users\\mehmet.kahramanoglu\\Desktop\\SESMAN\\SESMAN.Infrastructure\\Repositories\\RequestLogRepository.cs",
+              "RelativeToolTip": "SESMAN.Infrastructure\\Repositories\\RequestLogRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-06T10:29:40.782Z",
+              "WhenOpened": "2026-07-06T12:29:41.452Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
-              "Title": "SESMAN.Infrastructure",
+              "Title": "ResponseLog.cs",
+              "DocumentMoniker": "C:\\Users\\mehmet.kahramanoglu\\Desktop\\SESMAN\\SESMAN.Domain\\Entities\\ResponseLog.cs",
+              "RelativeDocumentMoniker": "SESMAN.Domain\\Entities\\ResponseLog.cs",
+              "ToolTip": "C:\\Users\\mehmet.kahramanoglu\\Desktop\\SESMAN\\SESMAN.Domain\\Entities\\ResponseLog.cs",
+              "RelativeToolTip": "SESMAN.Domain\\Entities\\ResponseLog.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-07T10:23:54.029Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "RequestLog.cs",
+              "DocumentMoniker": "C:\\Users\\mehmet.kahramanoglu\\Desktop\\SESMAN\\SESMAN.Domain\\Entities\\RequestLog.cs",
+              "RelativeDocumentMoniker": "SESMAN.Domain\\Entities\\RequestLog.cs",
+              "ToolTip": "C:\\Users\\mehmet.kahramanoglu\\Desktop\\SESMAN\\SESMAN.Domain\\Entities\\RequestLog.cs",
+              "RelativeToolTip": "SESMAN.Domain\\Entities\\RequestLog.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-07T13:34:53.265Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "ParameterDto.cs",
+              "DocumentMoniker": "C:\\Users\\mehmet.kahramanoglu\\Desktop\\SESMAN\\SESMAN.Application\\DTOs\\ParameterDto.cs",
+              "RelativeDocumentMoniker": "SESMAN.Application\\DTOs\\ParameterDto.cs",
+              "ToolTip": "C:\\Users\\mehmet.kahramanoglu\\Desktop\\SESMAN\\SESMAN.Application\\DTOs\\ParameterDto.cs",
+              "RelativeToolTip": "SESMAN.Application\\DTOs\\ParameterDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-08T05:05:10.502Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "HttpMethodType.cs",
+              "DocumentMoniker": "C:\\Users\\mehmet.kahramanoglu\\Desktop\\SESMAN\\SESMAN.Domain\\Enums\\HttpMethodType.cs",
+              "RelativeDocumentMoniker": "SESMAN.Domain\\Enums\\HttpMethodType.cs",
+              "ToolTip": "C:\\Users\\mehmet.kahramanoglu\\Desktop\\SESMAN\\SESMAN.Domain\\Enums\\HttpMethodType.cs",
+              "RelativeToolTip": "SESMAN.Domain\\Enums\\HttpMethodType.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-07T13:34:15.112Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "IRequestLogService.cs",
+              "DocumentMoniker": "C:\\Users\\mehmet.kahramanoglu\\Desktop\\SESMAN\\SESMAN.Application\\Interfaces\\IRequestLogService.cs",
+              "RelativeDocumentMoniker": "SESMAN.Application\\Interfaces\\IRequestLogService.cs",
+              "ToolTip": "C:\\Users\\mehmet.kahramanoglu\\Desktop\\SESMAN\\SESMAN.Application\\Interfaces\\IRequestLogService.cs",
+              "RelativeToolTip": "SESMAN.Application\\Interfaces\\IRequestLogService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-06T11:51:53.049Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "IRequestLogRepository.cs",
+              "DocumentMoniker": "C:\\Users\\mehmet.kahramanoglu\\Desktop\\SESMAN\\SESMAN.Application\\Interfaces\\IRequestLogRepository.cs",
+              "RelativeDocumentMoniker": "SESMAN.Application\\Interfaces\\IRequestLogRepository.cs",
+              "ToolTip": "C:\\Users\\mehmet.kahramanoglu\\Desktop\\SESMAN\\SESMAN.Application\\Interfaces\\IRequestLogRepository.cs",
+              "RelativeToolTip": "SESMAN.Application\\Interfaces\\IRequestLogRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-06T11:51:56.286Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "WeatherForecastController.cs",
+              "DocumentMoniker": "C:\\Users\\mehmet.kahramanoglu\\Desktop\\SESMAN\\SESMAN.Server\\Controllers\\WeatherForecastController.cs",
+              "RelativeDocumentMoniker": "SESMAN.Server\\Controllers\\WeatherForecastController.cs",
+              "ToolTip": "C:\\Users\\mehmet.kahramanoglu\\Desktop\\SESMAN\\SESMAN.Server\\Controllers\\WeatherForecastController.cs",
+              "RelativeToolTip": "SESMAN.Server\\Controllers\\WeatherForecastController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-08T04:07:25.635Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "BaseEntity.cs",
+              "DocumentMoniker": "C:\\Users\\mehmet.kahramanoglu\\Desktop\\SESMAN\\SESMAN.Domain\\Entities\\BaseEntity.cs",
+              "RelativeDocumentMoniker": "SESMAN.Domain\\Entities\\BaseEntity.cs",
+              "ToolTip": "C:\\Users\\mehmet.kahramanoglu\\Desktop\\SESMAN\\SESMAN.Domain\\Entities\\BaseEntity.cs",
+              "RelativeToolTip": "SESMAN.Domain\\Entities\\BaseEntity.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-07T13:46:16.408Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "RequestHeader.cs",
+              "DocumentMoniker": "C:\\Users\\mehmet.kahramanoglu\\Desktop\\SESMAN\\SESMAN.Domain\\Entities\\RequestHeader.cs",
+              "RelativeDocumentMoniker": "SESMAN.Domain\\Entities\\RequestHeader.cs",
+              "ToolTip": "C:\\Users\\mehmet.kahramanoglu\\Desktop\\SESMAN\\SESMAN.Domain\\Entities\\RequestHeader.cs",
+              "RelativeToolTip": "SESMAN.Domain\\Entities\\RequestHeader.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-07T13:46:17.454Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "ResponseHeader.cs",
+              "DocumentMoniker": "C:\\Users\\mehmet.kahramanoglu\\Desktop\\SESMAN\\SESMAN.Domain\\Entities\\ResponseHeader.cs",
+              "RelativeDocumentMoniker": "SESMAN.Domain\\Entities\\ResponseHeader.cs",
+              "ToolTip": "C:\\Users\\mehmet.kahramanoglu\\Desktop\\SESMAN\\SESMAN.Domain\\Entities\\ResponseHeader.cs",
+              "RelativeToolTip": "SESMAN.Domain\\Entities\\ResponseHeader.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-07T13:46:20.544Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "AppDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\mehmet.kahramanoglu\\Desktop\\SESMAN\\SESMAN.Infrastructure\\AppDbContext.cs",
+              "RelativeDocumentMoniker": "SESMAN.Infrastructure\\AppDbContext.cs",
+              "ToolTip": "C:\\Users\\mehmet.kahramanoglu\\Desktop\\SESMAN\\SESMAN.Infrastructure\\AppDbContext.cs",
+              "RelativeToolTip": "SESMAN.Infrastructure\\AppDbContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-07T13:46:13.138Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "RequestParameter.cs",
+              "DocumentMoniker": "C:\\Users\\mehmet.kahramanoglu\\Desktop\\SESMAN\\SESMAN.Domain\\Entities\\RequestParameter.cs",
+              "RelativeDocumentMoniker": "SESMAN.Domain\\Entities\\RequestParameter.cs",
+              "ToolTip": "C:\\Users\\mehmet.kahramanoglu\\Desktop\\SESMAN\\SESMAN.Domain\\Entities\\RequestParameter.cs",
+              "RelativeToolTip": "SESMAN.Domain\\Entities\\RequestParameter.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-07T13:35:21.781Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "SESMAN.Infrastructure.csproj",
               "DocumentMoniker": "C:\\Users\\mehmet.kahramanoglu\\Desktop\\SESMAN\\SESMAN.Infrastructure\\SESMAN.Infrastructure.csproj",
               "RelativeDocumentMoniker": "SESMAN.Infrastructure\\SESMAN.Infrastructure.csproj",
               "ToolTip": "C:\\Users\\mehmet.kahramanoglu\\Desktop\\SESMAN\\SESMAN.Infrastructure\\SESMAN.Infrastructure.csproj",
               "RelativeToolTip": "SESMAN.Infrastructure\\SESMAN.Infrastructure.csproj",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2026-07-06T10:29:36.799Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-07-07T13:46:06.941Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "AppDbContext.cs",
-              "DocumentMoniker": "C:\\Users\\mehmet.kahramanoglu\\Desktop\\SESMAN\\SESMAN.Infrastructure\\AppDbContext.cs",
-              "RelativeDocumentMoniker": "SESMAN.Infrastructure\\AppDbContext.cs",
-              "ToolTip": "C:\\Users\\mehmet.kahramanoglu\\Desktop\\SESMAN\\SESMAN.Infrastructure\\AppDbContext.cs",
-              "RelativeToolTip": "SESMAN.Infrastructure\\AppDbContext.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACIAAAAFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-06T08:49:07.514Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "HttpMethodType.cs",
-              "DocumentMoniker": "C:\\Users\\mehmet.kahramanoglu\\Desktop\\SESMAN\\SESMAN.Domain\\Enums\\HttpMethodType.cs",
-              "RelativeDocumentMoniker": "SESMAN.Domain\\Enums\\HttpMethodType.cs",
-              "ToolTip": "C:\\Users\\mehmet.kahramanoglu\\Desktop\\SESMAN\\SESMAN.Domain\\Enums\\HttpMethodType.cs",
-              "RelativeToolTip": "SESMAN.Domain\\Enums\\HttpMethodType.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAHAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-06T08:38:18.818Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "BaseEntity.cs",
-              "DocumentMoniker": "C:\\Users\\mehmet.kahramanoglu\\Desktop\\SESMAN\\SESMAN.Domain\\Entities\\BaseEntity.cs",
-              "RelativeDocumentMoniker": "SESMAN.Domain\\Entities\\BaseEntity.cs",
-              "ToolTip": "C:\\Users\\mehmet.kahramanoglu\\Desktop\\SESMAN\\SESMAN.Domain\\Entities\\BaseEntity.cs",
-              "RelativeToolTip": "SESMAN.Domain\\Entities\\BaseEntity.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-06T08:38:16.076Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "appsettings.json",
-              "DocumentMoniker": "C:\\Users\\mehmet.kahramanoglu\\Desktop\\SESMAN\\SESMAN.Server\\appsettings.json",
-              "RelativeDocumentMoniker": "SESMAN.Server\\appsettings.json",
-              "ToolTip": "C:\\Users\\mehmet.kahramanoglu\\Desktop\\SESMAN\\SESMAN.Server\\appsettings.json",
-              "RelativeToolTip": "SESMAN.Server\\appsettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAEAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2026-07-03T12:45:31.598Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 20,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\mehmet.kahramanoglu\\Desktop\\SESMAN\\SESMAN.Server\\Program.cs",
               "RelativeDocumentMoniker": "SESMAN.Server\\Program.cs",
               "ToolTip": "C:\\Users\\mehmet.kahramanoglu\\Desktop\\SESMAN\\SESMAN.Server\\Program.cs",
               "RelativeToolTip": "SESMAN.Server\\Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAAB8AAAAVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-03T12:46:25.185Z"
+              "WhenOpened": "2026-07-07T08:44:16.838Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "SESMAN.Server.csproj",
-              "DocumentMoniker": "C:\\Users\\mehmet.kahramanoglu\\Desktop\\SESMAN\\SESMAN.Server\\SESMAN.Server.csproj",
-              "RelativeDocumentMoniker": "SESMAN.Server\\SESMAN.Server.csproj",
-              "ToolTip": "C:\\Users\\mehmet.kahramanoglu\\Desktop\\SESMAN\\SESMAN.Server\\SESMAN.Server.csproj",
-              "RelativeToolTip": "SESMAN.Server\\SESMAN.Server.csproj",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAkAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2026-07-03T13:01:48.538Z",
-              "EditorCaption": ""
+              "DocumentIndex": 22,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\mehmet.kahramanoglu\\Desktop\\SESMAN\\SESMAN.Server\\appsettings.json",
+              "RelativeDocumentMoniker": "SESMAN.Server\\appsettings.json",
+              "ToolTip": "C:\\Users\\mehmet.kahramanoglu\\Desktop\\SESMAN\\SESMAN.Server\\appsettings.json",
+              "RelativeToolTip": "SESMAN.Server\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-07-07T10:15:21.792Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "SESMAN.Server.http",
+              "DocumentMoniker": "C:\\Users\\mehmet.kahramanoglu\\Desktop\\SESMAN\\SESMAN.Server\\SESMAN.Server.http",
+              "RelativeDocumentMoniker": "SESMAN.Server\\SESMAN.Server.http",
+              "ToolTip": "C:\\Users\\mehmet.kahramanoglu\\Desktop\\SESMAN\\SESMAN.Server\\SESMAN.Server.http",
+              "RelativeToolTip": "SESMAN.Server\\SESMAN.Server.http",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003502|",
+              "WhenOpened": "2026-07-07T10:15:35.722Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "CHANGELOG.md",
+              "DocumentMoniker": "C:\\Users\\mehmet.kahramanoglu\\Desktop\\SESMAN\\SESMAN.Server\\CHANGELOG.md",
+              "RelativeDocumentMoniker": "SESMAN.Server\\CHANGELOG.md",
+              "ToolTip": "C:\\Users\\mehmet.kahramanoglu\\Desktop\\SESMAN\\SESMAN.Server\\CHANGELOG.md",
+              "RelativeToolTip": "SESMAN.Server\\CHANGELOG.md",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001818|",
+              "WhenOpened": "2026-07-07T10:15:38.774Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "launchSettings.json",
+              "DocumentMoniker": "C:\\Users\\mehmet.kahramanoglu\\Desktop\\SESMAN\\SESMAN.Server\\Properties\\launchSettings.json",
+              "RelativeDocumentMoniker": "SESMAN.Server\\Properties\\launchSettings.json",
+              "ToolTip": "C:\\Users\\mehmet.kahramanoglu\\Desktop\\SESMAN\\SESMAN.Server\\Properties\\launchSettings.json",
+              "RelativeToolTip": "SESMAN.Server\\Properties\\launchSettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAABOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-07-07T10:16:00.854Z"
             }
           ]
         }

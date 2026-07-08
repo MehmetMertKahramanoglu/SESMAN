@@ -6,6 +6,5 @@
   </Project>
   <Project Path="SESMAN.Domain/SESMAN.Domain.csproj" Id="2b44471e-159b-4d48-9a67-50524c3c655a" />
   <Project Path="SESMAN.Infrastructure/SESMAN.Infrastructure.csproj" Id="b400fbd0-75a2-48ac-ba8c-678b02c59476" />
-  <Project Path="SESMAN.Presentation/SESMAN.Presentation.csproj" Id="14d06257-1141-49e4-be62-caec44b85270" />
   <Project Path="SESMAN.Server/SESMAN.Server.csproj" />
 </Solution>
