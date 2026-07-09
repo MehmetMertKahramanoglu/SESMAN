@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using SESMAN.Application.Interfaces;
 using SESMAN.Application.Services;
+using SESMAN.Domain.ReposInterfaces;
 using SESMAN.Infrastructure;
 using SESMAN.Infrastructure.Repositories;
 
@@ -16,7 +17,13 @@ builder.Services.AddScoped<IRequestLogService, RequestLogService>();
 // Altyapı (Infrastructure) Katmanındaki İşçimizi kaydediyoruz
 builder.Services.AddScoped<IRequestLogRepository, RequestLogRepository>();
 
-builder.Services.AddEndpointsApiExplorer();
+
+builder.Services.AddScoped<IResponseLogRepository, ResponseLogRepository>();
+builder.Services.AddScoped<IResponseLogService, ResponseLogService>();
+
+//AutoMapper için
+builder.Services.AddAutoMapper(cfg => cfg.AddProfile<SESMAN.Application.Mappings.MappingProfile>()); builder.Services.AddEndpointsApiExplorer();
+
 builder.Services.AddSwaggerGen();
 
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi

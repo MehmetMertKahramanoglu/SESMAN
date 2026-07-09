@@ -1,65 +1,172 @@
-﻿using SESMAN.Application.DTOs;
+﻿using AutoMapper;
+using SESMAN.Application.DTOs;
 using SESMAN.Application.Interfaces;
 using SESMAN.Domain.Entities;
 using SESMAN.Domain.Enums;
+using SESMAN.Domain.ReposInterfaces;
 
 namespace SESMAN.Application.Services
-{ //ID LERİ KENDİ OTOMATİK OLUŞTURUYOR BENİM YAPMAMA GEREK YOK İDE YAPMIYOR POSTGRE KISMI YAPIYOR BUNU !!!
+{
     public class RequestLogService : BaseService<RequestLog, RequestLogDto, CreateLogDto, UpdateLogDto>, IRequestLogService
     {
-        public RequestLogService(IRequestLogRepository repository) : base(repository)
+        public RequestLogService(IRequestLogRepository repository, IMapper mapper) : base(repository, mapper)
         {
-        }
-        //şimdilik manuel mapping yapıyorum AUTOMAPPİNG ARAŞTIRIP DÜZELT!
-        protected override RequestLogDto MapToDto(RequestLog entity)
-        {
-            return new RequestLogDto
-            {
-                Id = entity.Id,
-                Url = entity.Url,
-                Method = entity.Method.ToString(),
-                RequestBody = entity.Body,
-            };
         }
 
-        protected override RequestLog MapToEntity(CreateLogDto createDto)
-        {
-            return new RequestLog
-            {
-                Url = createDto.Url ?? string.Empty,
-                Method = Enum.Parse<HttpMethodType>(createDto.Method ?? "GET", true),
-
-                RequestHeaders = createDto.Headers?.Select(h => new RequestHeader { Key = h.Key, Value = h.Value }).ToList() ?? new(),
-                RequestParameters = createDto.Parameters?.Select(p => new RequestParameter { Key = p.Key, Value = p.Value }).ToList() ?? new()
-            };
-        }
-
-        protected override void MapUpdateDtoToEntity(UpdateLogDto updateDto, RequestLog entity)
-        {
-            entity.Url = updateDto.Url ?? entity.Url;
-            entity.Method = Enum.Parse<HttpMethodType>(updateDto.Method ?? entity.Method.ToString(), true);
-            
-        }
+        //  PATCH İŞLEMİ 
         public async Task PatchAsync(Guid id, UpdateLogDto dto)
         {
             var existingLog = await _repository.GetByIdAsync(id);
             if (existingLog != null)
             {
+                // Ana Tablo Güncellemesi
                 if (!string.IsNullOrEmpty(dto.Url)) existingLog.Url = dto.Url;
                 if (!string.IsNullOrEmpty(dto.Method)) existingLog.Method = Enum.Parse<HttpMethodType>(dto.Method, true);
-                if (!string.IsNullOrEmpty(dto.RequestBody)) existingLog.Body = dto.RequestBody;
+                if (!string.IsNullOrEmpty(dto.Body)) existingLog.Body = dto.Body;
 
-                if (dto.Headers != null && dto.Headers.Any())
+                // BAŞLIKLAR İÇİN AKILLI GÜNCELLEME
+                if (dto.RequestHeaders != null)
                 {
-                    existingLog.RequestHeaders = dto.Headers.Select(h => new RequestHeader { Id = Guid.NewGuid(), Key = h.Key, Value = h.Value }).ToList();
+                    var incomingHeaderIds = dto.RequestHeaders
+                        .Where(h => h.Id != Guid.Empty)
+                        .Select(h => h.Id)
+                        .ToList();
+
+                    var headersToRemove = existingLog.RequestHeaders.Where(h => !incomingHeaderIds.Contains(h.Id)).ToList();
+                    foreach (var h in headersToRemove)
+                    {
+                        existingLog.RequestHeaders.Remove(h);
+                    }
+
+                    foreach (var headerDto in dto.RequestHeaders)
+                    {
+                        if (headerDto.Id != Guid.Empty)
+                        {
+                            var existingHeader = existingLog.RequestHeaders.FirstOrDefault(h => h.Id == headerDto.Id);
+                            if (existingHeader != null)
+                            {
+                                _mapper.Map(headerDto, existingHeader);
+                            }
+                        }
+                        else
+                        {
+                            var newHeader = _mapper.Map<RequestHeader>(headerDto);
+                            existingLog.RequestHeaders.Add(newHeader);
+                        }
+                    }
                 }
 
-                if (dto.Parameters != null && dto.Parameters.Any())
+                
+                if (dto.RequestParameters != null)
                 {
-                    existingLog.RequestParameters = dto.Parameters.Select(p => new RequestParameter { Id = Guid.NewGuid(), Key = p.Key, Value = p.Value }).ToList();
+                    var incomingParamIds = dto.RequestParameters
+                        .Where(p => p.Id != Guid.Empty)
+                        .Select(p => p.Id)
+                        .ToList();
+
+                    var paramsToRemove = existingLog.RequestParameters.Where(p => !incomingParamIds.Contains(p.Id)).ToList();
+                    foreach (var p in paramsToRemove)
+                    {
+                        existingLog.RequestParameters.Remove(p);
+                    }
+
+                    foreach (var paramDto in dto.RequestParameters)
+                    {
+                        if (paramDto.Id != Guid.Empty)
+                        {
+                            var existingParam = existingLog.RequestParameters.FirstOrDefault(p => p.Id == paramDto.Id);
+                            if (existingParam != null)
+                            {
+                                _mapper.Map(paramDto, existingParam);
+                            }
+                        }
+                        else
+                        {
+                            var newParam = _mapper.Map<RequestParameter>(paramDto);
+                            existingLog.RequestParameters.Add(newParam);
+                        }
+                    }
                 }
 
+               
                 await _repository.UpdateAsync(existingLog);
+            }
+        }
+
+        // PUT İŞLEMİ
+        public override async Task UpdateAsync(Guid id, UpdateLogDto dto)
+        {
+            var entity = await _repository.GetByIdAsync(id);
+            if (entity != null)
+            {
+                // Ana Tablo Güncellemesi
+                _mapper.Map(dto, entity);
+
+                // BAŞLIKLAR İÇİN AKILLI GÜNCELLEME
+                if (dto.RequestHeaders != null)
+                {
+                    var incomingHeaderIds = dto.RequestHeaders
+                        .Where(h => h.Id != Guid.Empty)
+                        .Select(h => h.Id)
+                        .ToList();
+
+                    var headersToRemove = entity.RequestHeaders.Where(h => !incomingHeaderIds.Contains(h.Id)).ToList();
+                    foreach (var h in headersToRemove)
+                    {
+                        entity.RequestHeaders.Remove(h);
+                    }
+
+                    foreach (var headerDto in dto.RequestHeaders)
+                    {
+                        if (headerDto.Id != Guid.Empty)
+                        {
+                            var existingHeader = entity.RequestHeaders.FirstOrDefault(h => h.Id == headerDto.Id);
+                            if (existingHeader != null)
+                            {
+                                _mapper.Map(headerDto, existingHeader);
+                            }
+                        }
+                        else
+                        {
+                            var newHeader = _mapper.Map<RequestHeader>(headerDto);
+                            entity.RequestHeaders.Add(newHeader);
+                        }
+                    }
+                }
+
+                // PARAMETRELER İÇİN AKILLI GÜNCELLEME
+                if (dto.RequestParameters != null)
+                {
+                    var incomingParamIds = dto.RequestParameters
+                        .Where(p => p.Id != Guid.Empty)
+                        .Select(p => p.Id)
+                        .ToList();
+
+                    var paramsToRemove = entity.RequestParameters.Where(p => !incomingParamIds.Contains(p.Id)).ToList();
+                    foreach (var p in paramsToRemove)
+                    {
+                        entity.RequestParameters.Remove(p);
+                    }
+
+                    foreach (var paramDto in dto.RequestParameters)
+                    {
+                        if (paramDto.Id != Guid.Empty)
+                        {
+                            var existingParam = entity.RequestParameters.FirstOrDefault(p => p.Id == paramDto.Id);
+                            if (existingParam != null)
+                            {
+                                _mapper.Map(paramDto, existingParam);
+                            }
+                        }
+                        else
+                        {
+                            var newParam = _mapper.Map<RequestParameter>(paramDto);
+                            entity.RequestParameters.Add(newParam);
+                        }
+                    }
+                }
+
+                await _repository.UpdateAsync(entity);
             }
         }
     }

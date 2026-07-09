@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SESMAN.Application.Interfaces;
+using SESMAN.Domain.ReposInterfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -27,9 +28,9 @@ namespace SESMAN.Infrastructure.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task UpdateAsync(T entity) //değer güncelleme
+        public virtual async Task UpdateAsync(T entity) //değer güncelleme
         {
-            _dbSet.Update(entity);
+            //_dbSet.Update(entity);
             await _context.SaveChangesAsync();
         }
 

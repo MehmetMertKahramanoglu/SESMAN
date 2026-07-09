@@ -4,7 +4,7 @@ using System.Text;
 
 namespace SESMAN.Application.DTOs
 {
-    public class HeaderDto
+    public class ResponseHeaderDto : BaseDto
     {
         public string Key { get; set; } = string.Empty;
         public string Value { get; set; } = string.Empty;

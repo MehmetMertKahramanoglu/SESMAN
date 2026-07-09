@@ -8,9 +8,9 @@ namespace SESMAN.Application.DTOs
     {
         public string? Url { get; set; }
         public string? Method { get; set; }
-        public string? RequestBody { get; set; }
+        public string? Body { get; set; }
 
-        public List<HeaderDto>? Headers { get; set; } = new();
-        public List<ParameterDto>? Parameters { get; set; } = new();
+        public List<RequestHeaderDto>? RequestHeaders { get; set; } = new();
+        public List<RequestParameterDto>? RequestParameters { get; set; } = new();
     }
 }
