@@ -30,7 +30,6 @@ namespace SESMAN.Infrastructure.Repositories
 
         public virtual async Task UpdateAsync(T entity) //değer güncelleme
         {
-            //_dbSet.Update(entity);
             await _context.SaveChangesAsync();
         }
 

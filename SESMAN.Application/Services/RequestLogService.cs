@@ -7,14 +7,14 @@ using SESMAN.Domain.ReposInterfaces;
 
 namespace SESMAN.Application.Services
 {
-    public class RequestLogService : BaseService<RequestLog, RequestLogDto, CreateLogDto, UpdateLogDto>, IRequestLogService
+    public class RequestLogService : BaseService<RequestLog, RequestLogDto, CreateRequestLogDto, UpdateRequestLogDto>, IRequestLogService
     {
         public RequestLogService(IRequestLogRepository repository, IMapper mapper) : base(repository, mapper)
         {
         }
 
         //  PATCH İŞLEMİ 
-        public async Task PatchAsync(Guid id, UpdateLogDto dto)
+        public async Task PatchAsync(Guid id, UpdateRequestLogDto dto)
         {
             var existingLog = await _repository.GetByIdAsync(id);
             if (existingLog != null)
@@ -25,8 +25,7 @@ namespace SESMAN.Application.Services
                 if (!string.IsNullOrEmpty(dto.Body)) existingLog.Body = dto.Body;
 
                 // BAŞLIKLAR İÇİN AKILLI GÜNCELLEME
-                if (dto.RequestHeaders != null)
-                {
+              
                     var incomingHeaderIds = dto.RequestHeaders
                         .Where(h => h.Id != Guid.Empty)
                         .Select(h => h.Id)
@@ -54,11 +53,10 @@ namespace SESMAN.Application.Services
                             existingLog.RequestHeaders.Add(newHeader);
                         }
                     }
-                }
+                
 
                 
-                if (dto.RequestParameters != null)
-                {
+             
                     var incomingParamIds = dto.RequestParameters
                         .Where(p => p.Id != Guid.Empty)
                         .Select(p => p.Id)
@@ -86,7 +84,7 @@ namespace SESMAN.Application.Services
                             existingLog.RequestParameters.Add(newParam);
                         }
                     }
-                }
+                
 
                
                 await _repository.UpdateAsync(existingLog);
@@ -94,7 +92,7 @@ namespace SESMAN.Application.Services
         }
 
         // PUT İŞLEMİ
-        public override async Task UpdateAsync(Guid id, UpdateLogDto dto)
+        public override async Task UpdateAsync(Guid id, UpdateRequestLogDto dto)
         {
             var entity = await _repository.GetByIdAsync(id);
             if (entity != null)
@@ -135,8 +133,7 @@ namespace SESMAN.Application.Services
                 }
 
                 // PARAMETRELER İÇİN AKILLI GÜNCELLEME
-                if (dto.RequestParameters != null)
-                {
+             
                     var incomingParamIds = dto.RequestParameters
                         .Where(p => p.Id != Guid.Empty)
                         .Select(p => p.Id)
@@ -164,7 +161,7 @@ namespace SESMAN.Application.Services
                             entity.RequestParameters.Add(newParam);
                         }
                     }
-                }
+                
 
                 await _repository.UpdateAsync(entity);
             }

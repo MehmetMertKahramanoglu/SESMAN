@@ -2,8 +2,8 @@
 
 namespace SESMAN.Application.Interfaces
 {
-    public interface IRequestLogService : IBaseService<RequestLogDto, CreateLogDto, UpdateLogDto>
+    public interface IRequestLogService : IBaseService<RequestLogDto, CreateRequestLogDto, UpdateRequestLogDto>
     {
-        Task PatchAsync(Guid id, UpdateLogDto dto);
+        Task PatchAsync(Guid id, UpdateRequestLogDto dto);
     }
 }

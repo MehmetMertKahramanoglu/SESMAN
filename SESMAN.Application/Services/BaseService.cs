@@ -33,7 +33,7 @@ namespace SESMAN.Application.Services
         public async Task CreateAsync(TCreateDto dto)
         {
             var entity = _mapper.Map<TEntity>(dto);
-            await _repository.AddAsync(entity);
+            await _repository.AddAsync(entity); //burada otomatik olarak state ekleniyor. (EF tarafından)
         }
 
         public virtual async Task UpdateAsync(Guid id, TUpdateDto dto)

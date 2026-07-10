@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace SESMAN.Domain.Entities
@@ -10,7 +9,6 @@ namespace SESMAN.Domain.Entities
         // 1-1 İlişki: Hangi isteğin yanıtı olduğu
         public Guid RequestLogId { get; set; }
 
-        [ForeignKey("RequestLogId")]
         public virtual RequestLog? RequestLog { get; set; } 
         public int StatusCode { get; set; } // 404, 200 vb.
         public string? Body { get; set; } // Gelen Json yanıt

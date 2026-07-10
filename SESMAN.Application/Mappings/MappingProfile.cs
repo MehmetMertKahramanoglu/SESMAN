@@ -8,26 +8,26 @@ namespace SESMAN.Application.Mappings
     {
         public MappingProfile()
         {
-            CreateMap<RequestHeaderDto, RequestHeader>()
-                .ForMember(dest => dest.Id, opt => opt.Ignore());
+            CreateMap<RequestHeaderDto, RequestHeader>();
+ 
             CreateMap<RequestHeader, RequestHeaderDto>();
 
-            CreateMap<RequestParameterDto, RequestParameter>()
-                .ForMember(dest => dest.Id, opt => opt.Ignore());
+            CreateMap<RequestParameterDto, RequestParameter>();
+
             CreateMap<RequestParameter, RequestParameterDto>();
 
-            CreateMap<ResponseHeaderDto, ResponseHeader>()
-                .ForMember(dest => dest.Id, opt => opt.Ignore());
+            CreateMap<ResponseHeaderDto, ResponseHeader>();
+
             CreateMap<ResponseHeader, ResponseHeaderDto>();
 
 
             CreateMap<RequestLog, RequestLogDto>();
 
-            CreateMap<CreateLogDto, RequestLog>();
+            CreateMap<CreateRequestLogDto, RequestLog>();
     
 
 
-            CreateMap<UpdateLogDto, RequestLog>()
+            CreateMap<UpdateRequestLogDto, RequestLog>()
                 .ForMember(dest => dest.RequestHeaders, opt => opt.Ignore())
                 .ForMember(dest => dest.RequestParameters, opt => opt.Ignore());
 

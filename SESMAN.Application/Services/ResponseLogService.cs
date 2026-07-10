@@ -21,9 +21,7 @@ namespace SESMAN.Application.Services
                 _mapper.Map(dto, entity); //BURADA ANA TABLOYU GÜNCELLEDİM İÇİNDE HEADERS İGNORE OLDUĞU İÇİN BAĞLANTIYI KESMEMİŞ OLDU
 
                 //HEADER İÇİN AKILLI GÜNCELLEME
-                if (dto.ResponseHeaders != null)
-                {
-                    
+               
                     var incomingHeaderIds = dto.ResponseHeaders
                         .Where(h => h.Id != Guid.Empty)
                         .Select(h => h.Id)
@@ -52,7 +50,7 @@ namespace SESMAN.Application.Services
                             entity.ResponseHeaders.Add(newHeader);
                         }
                     }
-                }
+                
 
                 await _repository.UpdateAsync(entity);
             }
@@ -68,8 +66,7 @@ namespace SESMAN.Application.Services
                 if (!string.IsNullOrEmpty(dto.Body)) existingLog.Body = dto.Body;
                 if (dto.ExecutionTimeMs != 0) existingLog.ExecutionTimeMs = dto.ExecutionTimeMs;
 
-                if (dto.ResponseHeaders != null)
-                {
+              
                     var incomingHeaderIds = dto.ResponseHeaders
                         .Where(h => h.Id != Guid.Empty)
                         .Select(h => h.Id)
@@ -97,7 +94,7 @@ namespace SESMAN.Application.Services
                             existingLog.ResponseHeaders.Add(newHeader);
                         }
                     }
-                }
+                
 
                 await _repository.UpdateAsync(existingLog);
             }

@@ -13,6 +13,6 @@ namespace SESMAN.Application.DTOs
         public string? Body { get; set; }
         public long ExecutionTimeMs { get; set; }
 
-        public List<ResponseHeaderDto>? ResponseHeaders { get; set; } = new();
+        public List<ResponseHeaderDto> ResponseHeaders { get; set; } = new();
     }
 }
