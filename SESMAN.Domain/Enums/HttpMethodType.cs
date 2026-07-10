@@ -6,6 +6,10 @@ namespace SESMAN.Domain.Enums
 {
     public enum HttpMethodType
     {
-        Get = 1, Post = 2, Put = 3, Patch = 4 , Delete = 5
+        GET = 1,
+        POST = 2,
+        PUT = 3,
+        PATCH = 4,
+        DELETE = 5
     }
 }

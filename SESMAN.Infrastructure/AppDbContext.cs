@@ -29,6 +29,40 @@ namespace SESMAN.Infrastructure
             modelBuilder.Entity<RequestLog>() //enum yapısında normalde int değer döneceği için okumayı kolaylaştırması için stringe döndürüyorum. (2 yerine post yazacak.)
                 .Property(r => r.Method)
                 .HasConversion<string>();
+
+            modelBuilder.Entity<RequestLog>()
+         .HasOne(req => req.Response)        
+         .WithOne(res => res.RequestLog)     
+         .HasForeignKey<ResponseLog>(res => res.RequestLogId);
+
+            modelBuilder.Entity<ResponseLog>()
+        .HasMany(r => r.ResponseHeaders)
+        .WithOne() 
+        .HasForeignKey(h => h.ResponseLogId)
+        .OnDelete(DeleteBehavior.Cascade);
+        }
+
+        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        {
+            // Tracker veritabanına gitmek üzere olan tüm verileri yakalar
+            var entries = ChangeTracker.Entries<BaseEntity>();
+
+            foreach (var entry in entries)
+            {
+                // Eğer bu yeni eklenen (Insert) bir kayıt ise oluşturulma tarihini bas
+                if (entry.State == EntityState.Added)
+                {
+                    entry.Entity.CreatedAt = DateTime.UtcNow;
+                }
+
+                // Güncelleme anında o anki tarihi UpdatedAt'e bas
+                else if (entry.State == EntityState.Modified)
+                {
+                    entry.Entity.UpdatedAt = DateTime.UtcNow;
+                }
+            }
+
+            return base.SaveChangesAsync(cancellationToken);
         }
     }
         

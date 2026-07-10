@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using SESMAN.Infrastructure;
@@ -11,9 +12,11 @@ using SESMAN.Infrastructure;
 namespace SESMAN.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260707113638_UpdateRelationships")]
+    partial class UpdateRelationships
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -37,9 +40,6 @@ namespace SESMAN.Infrastructure.Migrations
 
                     b.Property<Guid>("RequestLogId")
                         .HasColumnType("uuid");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Value")
                         .IsRequired()
@@ -68,9 +68,6 @@ namespace SESMAN.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone");
-
                     b.Property<string>("Url")
                         .IsRequired()
                         .HasColumnType("text");
@@ -95,9 +92,6 @@ namespace SESMAN.Infrastructure.Migrations
 
                     b.Property<Guid>("RequestLogId")
                         .HasColumnType("uuid");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Value")
                         .IsRequired()
@@ -125,9 +119,6 @@ namespace SESMAN.Infrastructure.Migrations
 
                     b.Property<Guid>("ResponseLogId")
                         .HasColumnType("uuid");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Value")
                         .IsRequired()
@@ -158,16 +149,18 @@ namespace SESMAN.Infrastructure.Migrations
                     b.Property<Guid>("RequestLogId")
                         .HasColumnType("uuid");
 
+                    b.Property<Guid?>("RequestLogId1")
+                        .HasColumnType("uuid");
+
                     b.Property<int>("StatusCode")
                         .HasColumnType("integer");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
 
                     b.HasIndex("RequestLogId")
                         .IsUnique();
+
+                    b.HasIndex("RequestLogId1");
 
                     b.ToTable("ResponseLogs");
                 });
@@ -193,7 +186,7 @@ namespace SESMAN.Infrastructure.Migrations
             modelBuilder.Entity("SESMAN.Domain.Entities.ResponseHeader", b =>
                 {
                     b.HasOne("SESMAN.Domain.Entities.ResponseLog", null)
-                        .WithMany("ResponseHeaders")
+                        .WithMany("Headers")
                         .HasForeignKey("ResponseLogId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -201,11 +194,15 @@ namespace SESMAN.Infrastructure.Migrations
 
             modelBuilder.Entity("SESMAN.Domain.Entities.ResponseLog", b =>
                 {
-                    b.HasOne("SESMAN.Domain.Entities.RequestLog", "RequestLog")
+                    b.HasOne("SESMAN.Domain.Entities.RequestLog", null)
                         .WithOne("Response")
                         .HasForeignKey("SESMAN.Domain.Entities.ResponseLog", "RequestLogId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("SESMAN.Domain.Entities.RequestLog", "RequestLog")
+                        .WithMany()
+                        .HasForeignKey("RequestLogId1");
 
                     b.Navigation("RequestLog");
                 });
@@ -221,7 +218,7 @@ namespace SESMAN.Infrastructure.Migrations
 
             modelBuilder.Entity("SESMAN.Domain.Entities.ResponseLog", b =>
                 {
-                    b.Navigation("ResponseHeaders");
+                    b.Navigation("Headers");
                 });
 #pragma warning restore 612, 618
         }

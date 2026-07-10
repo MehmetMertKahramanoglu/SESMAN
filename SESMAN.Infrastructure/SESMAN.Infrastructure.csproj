@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SESMAN.Application\SESMAN.Application.csproj" />
     <ProjectReference Include="..\SESMAN.Domain\SESMAN.Domain.csproj" />
   </ItemGroup>
 
