@@ -18,6 +18,13 @@ namespace SESMAN.Infrastructure
         public DbSet<ResponseHeader> ResponseHeaders  { get; set; }
         public DbSet<RequestParameter> RequestParameters  { get; set; }
 
+
+        public DbSet<SavedRequest> SavedRequests { get; set; }
+        public DbSet<SavedRequestHeader> SavedRequestHeaders { get; set; }
+        public DbSet<SavedRequestParameter> SavedRequestParameters { get; set; }
+        public DbSet<Collection> Collections { get; set; }
+
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<RequestLog>()
@@ -39,6 +46,19 @@ namespace SESMAN.Infrastructure
         .HasMany(r => r.ResponseHeaders)
         .WithOne() 
         .HasForeignKey(h => h.ResponseLogId)
+        .OnDelete(DeleteBehavior.Cascade);
+
+
+            modelBuilder.Entity<SavedRequest>()
+     .HasMany(s => s.SavedRequestHeaders) // SavedRequest'in içinde birden çok Header vardır
+     .WithOne()                           // AMA Header'ın içinde geriye dönüş (Navigation Property) YOKTUR! (İçi boş)
+     .HasForeignKey(h => h.SavedRequestId)
+     .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<SavedRequest>()
+        .HasMany(s => s.SavedRequestParameters) // SavedRequest'in içinde birden çok Parameter vardır
+        .WithOne()                              // AMA Parameter'ın içinde geriye dönüş YOKTUR!
+        .HasForeignKey(p => p.SavedRequestId)
         .OnDelete(DeleteBehavior.Cascade);
         }
 

@@ -16,8 +16,6 @@ namespace SESMAN.Application.Services
             _mapper = mapper;
         }
 
-   
-
         public async Task<List<TDto>> GetAllAsync()
         {
             var entities = await _repository.GetAllAsync();

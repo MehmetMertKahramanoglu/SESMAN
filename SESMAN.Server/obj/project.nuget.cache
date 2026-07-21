@@ -1,13 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "Cve04P025pw=",
+  "dgSpecHash": "XE0ybxPTu8w=",
   "success": true,
   "projectFilePath": "C:\\Users\\mehmet.kahramanoglu\\Desktop\\SESMAN\\SESMAN.Server\\SESMAN.Server.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\mehmet.kahramanoglu\\.nuget\\packages\\automapper\\16.2.0\\automapper.16.2.0.nupkg.sha512",
     "C:\\Users\\mehmet.kahramanoglu\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\mehmet.kahramanoglu\\.nuget\\packages\\microsoft.aspnetcore.openapi\\10.0.9\\microsoft.aspnetcore.openapi.10.0.9.nupkg.sha512",
-    "C:\\Users\\mehmet.kahramanoglu\\.nuget\\packages\\microsoft.aspnetcore.spaproxy\\10.0.9\\microsoft.aspnetcore.spaproxy.10.0.9.nupkg.sha512",
+    "C:\\Users\\mehmet.kahramanoglu\\.nuget\\packages\\microsoft.aspnetcore.spaproxy\\10.0.10\\microsoft.aspnetcore.spaproxy.10.0.10.nupkg.sha512",
     "C:\\Users\\mehmet.kahramanoglu\\.nuget\\packages\\microsoft.build.framework\\18.0.2\\microsoft.build.framework.18.0.2.nupkg.sha512",
     "C:\\Users\\mehmet.kahramanoglu\\.nuget\\packages\\microsoft.codeanalysis.analyzers\\3.11.0\\microsoft.codeanalysis.analyzers.3.11.0.nupkg.sha512",
     "C:\\Users\\mehmet.kahramanoglu\\.nuget\\packages\\microsoft.codeanalysis.common\\5.0.0\\microsoft.codeanalysis.common.5.0.0.nupkg.sha512",

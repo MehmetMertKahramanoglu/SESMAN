@@ -9,7 +9,6 @@ namespace SESMAN.Application.DTOs
         public Guid RequestLogId { get; set; }
         public int StatusCode { get; set; }
 
-       
         public string? Body { get; set; }
         public long ExecutionTimeMs { get; set; }
 

@@ -12,6 +12,11 @@ namespace SESMAN.Domain.Entities
 
         public string? Body { get; set; }
 
+        public string? BodyType { get; set; }
+
+        //body type
+        public string? RawType { get; set; }
+
         //1-n olunca ICollection yapısı kullanılır.
         public virtual ICollection<RequestParameter> RequestParameters { get; set; } = new List<RequestParameter>();
         public virtual ICollection<RequestHeader> RequestHeaders { get; set; } = new List<RequestHeader>();

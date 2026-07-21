@@ -20,7 +20,7 @@ namespace SESMAN.Application.Services
             {
                 _mapper.Map(dto, entity); //BURADA ANA TABLOYU GÜNCELLEDİM İÇİNDE HEADERS İGNORE OLDUĞU İÇİN BAĞLANTIYI KESMEMİŞ OLDU
 
-                //HEADER İÇİN AKILLI GÜNCELLEME
+                //Headers güncelleme
                
                     var incomingHeaderIds = dto.ResponseHeaders
                         .Where(h => h.Id != Guid.Empty)

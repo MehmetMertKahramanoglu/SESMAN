@@ -1,47 +1,118 @@
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
+import SidebarMenu from '@/components/SidebarMenu.vue'
+import RequestBar from '@/components/RequestBar.vue'
+import RequestTabs from '@/components/RequestTabs.vue'
+import ResponseArea from '@/components/ResponseArea.vue'
+
+
+import { ref } from 'vue';
+import { useRequestStore } from '@/Stores/requestStore';
+import { useCollectionStore } from '@/Stores/collectionStore';
+
+const requestStore = useRequestStore();
+const collectionStore = useCollectionStore();
+
+const isSaveModalOpen = ref(false);
+const newRequestName = ref('');
+const selectedCollectionId = ref('');
+
+const openSaveModal = () => isSaveModalOpen.value = true;
+const closeSaveModal = () => {
+  isSaveModalOpen.value = false;
+  newRequestName.value = '';
+  selectedCollectionId.value = '';
+};
+
+const confirmSave = async () => {
+  if (!newRequestName.value || !selectedCollectionId.value) {
+    alert("Please enter a name and select a folder!");
+    return;
+  }
+
+  // Böylece methodMap kullanmadan, direkt 'GET', 'POST' kelimesini yollayabileceğiz.
+  const payload: any = {
+    name: newRequestName.value,
+    collectionId: selectedCollectionId.value,
+    url: requestStore.url,
+    
+ 
+    method: requestStore.method, 
+    
+    body: requestStore.body,
+    savedRequestHeaders: requestStore.requestHeaders.map(h => ({ key: h.key, value: h.value })),
+    savedRequestParameters: requestStore.requestParameters.map(p => ({ key: p.key, value: p.value }))
+  };
+
+  const isSuccess = await collectionStore.saveNewRequest(payload);
+  
+  if (isSuccess) {
+    alert("The template was successfully saved to the folder!");
+    closeSaveModal(); 
+  }
+};
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
+  <div class="sesman-layout">
+    
+    <aside class="sidebarMenu-container">
+      <SidebarMenu />
+    </aside>
 
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-    </div>
-  </header>
+    <main class="main-content">
+      <!-- URL ve HTTP metodunun bulunduğu bölüm -->
+      <RequestBar />
+      <!-- Header, Params ve Body sekmeleri -->
+      <RequestTabs />
+      <!-- Gelen cevabın gösterildiği alan -->
+      <ResponseArea />
 
-  <main>
-    <TheWelcome />
-  </main>
+    </main>
+    
+  </div>
 </template>
 
-<style scoped>
-header {
-  line-height: 1.5;
+<style>
+  /* Sayfa genel ayarları */
+body, html {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+  background-color: #ffffff; /* Beyaz arka plan */
+  color: #333333; /* Siyah yazı */
 }
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
+  /* tam ekran kaplaması için */
+#app {
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  display: flex;
 }
 
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
+  /* Ana sayfa düzeni */
+.sesman-layout {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
 
-  .logo {
-    margin: 0 2rem 0 0;
-  }
+  /* Sol menü */
+.sidebarMenu-container {
+  width: 250px;
+  background-color: #f8f9fa; 
+  border-right: 1px solid #ddd;
+  padding: 15px;
+}
 
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
+  /* Sağ taraf */
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  gap: 15px;
 }
 </style>

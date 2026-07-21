@@ -15,18 +15,19 @@ namespace SESMAN.Server.Controllers
             _service = service;
         }
 
-        [HttpGet] //GET METODU
-        public async Task<IActionResult> GetAll()
-        {
-            var result = await _service.GetAllAsync();
+        [HttpGet] // GET METODU 
+public async Task<IActionResult> GetAll([FromQuery] int page = 1, [FromQuery] int pageSize = 10)
+{
+       
+            var result = await _service.GetPagedHistoryAsync(page, pageSize);
 
-            if (result == null || !result.Any()) //veritabanında kayıt olmaması durumunda hata kontrolü
-            {
-                return NoContent();
-            }
+    if (result == null || !result.Any()) // veritabanında kayıt olmaması durumunda
+    {
+        return NoContent();
+    }
 
-            return Ok(result);
-        }
+    return Ok(result);
+}
 
         [HttpGet("{id}")] // GET METODU Id ile çalışan
         public async Task<IActionResult> GetById(Guid id)
