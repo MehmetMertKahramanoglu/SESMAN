@@ -114,11 +114,13 @@ namespace SESMAN.Application.Services
         }
 
         // PUT İŞLEMİ
-        public override async Task UpdateAsync(Guid id, UpdateRequestLogDto dto)
+        public override async Task<bool> UpdateAsync(Guid id, UpdateRequestLogDto dto)
         {
             var entity = await _repository.GetByIdAsync(id);
-            if (entity != null)
+            if (entity == null)
             {
+                return false;
+            }
                 // Ana Tablo Güncellemesi
                 _mapper.Map(dto, entity);
 
@@ -186,7 +188,7 @@ namespace SESMAN.Application.Services
                 
 
                 await _repository.UpdateAsync(entity);
+            return true;
             }
         }
     }
-}

@@ -13,11 +13,13 @@ namespace SESMAN.Application.Services
         }
 
         // PUT İŞLEMİ
-        public override async Task UpdateAsync(Guid id, UpdateResponseLogDto dto)
+        public override async Task<bool> UpdateAsync(Guid id, UpdateResponseLogDto dto)
         {
             var entity = await _repository.GetByIdAsync(id);
-            if (entity != null)
+            if (entity == null)
             {
+                return false;
+            }
                 _mapper.Map(dto, entity); //BURADA ANA TABLOYU GÜNCELLEDİM İÇİNDE HEADERS İGNORE OLDUĞU İÇİN BAĞLANTIYI KESMEMİŞ OLDU
 
                 //Headers güncelleme
@@ -53,8 +55,9 @@ namespace SESMAN.Application.Services
                 
 
                 await _repository.UpdateAsync(entity);
+            return true;
             }
-        }
+        
 
         //PATCH İŞLEMİ 
         public async Task PatchAsync(Guid id, UpdateResponseLogDto dto)

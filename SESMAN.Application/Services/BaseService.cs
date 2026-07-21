@@ -34,19 +34,22 @@ namespace SESMAN.Application.Services
             await _repository.AddAsync(entity); //burada otomatik olarak state ekleniyor. (EF tarafından)
         }
 
-        public virtual async Task UpdateAsync(Guid id, TUpdateDto dto)
+        public virtual async Task<bool> UpdateAsync(Guid id, TUpdateDto dto)
         {
             var entity = await _repository.GetByIdAsync(id);
-            if (entity != null)
+            if (entity == null)
             {
-                _mapper.Map(dto, entity); // DTO'daki değişiklikleri mevcut entity üzerine yazar
-                await _repository.UpdateAsync(entity);
+                return false;
             }
+            _mapper.Map(dto, entity); // DTO'daki değişiklikleri mevcut entity üzerine yazar
+            await _repository.UpdateAsync(entity);
+            return true;
         }
 
-        public async Task DeleteAsync(Guid id)
+        public async Task<bool> DeleteAsync(Guid id)
         {
             await _repository.DeleteAsync(id);
+            return true;
         }
     }
 }

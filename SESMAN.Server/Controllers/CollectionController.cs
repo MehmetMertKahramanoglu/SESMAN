@@ -59,7 +59,7 @@ namespace SESMAN.Server.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(Guid id, [FromBody] CreateSavedRequestDto dto)
+        public async Task<IActionResult> Update(Guid id, [FromBody] CreateCollectionDto dto)
         {
             if (dto == null)
             {
