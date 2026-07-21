@@ -59,21 +59,26 @@ namespace SESMAN.Server.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(Guid id, [FromBody] CreateCollectionDto dto)
+        public async Task<IActionResult> Update(Guid id, [FromBody] CreateSavedRequestDto dto)
         {
             if (dto == null)
             {
-                return BadRequest("The submitted data cannot be empty.");
+                return BadRequest("Gönderilen veri boş olamaz.");
             }
 
             try
             {
-                await _service.UpdateAsync(id, dto);
-                return Ok("The collection has been successfully updated.");
+                //başlangıçta bu Id'ye sahip bir kayıt var mı diye kontrol ediyoruz.
+                bool isUpdated = await _service.UpdateAsync(id, dto);
+                if (!isUpdated)
+                {
+                    return NotFound("The request template to be deleted was not found.");
+                }
+                return Ok("İstek şablonu başarıyla güncellendi.");
             }
             catch (Exception)
             {
-                return StatusCode(500, "An error occurred during the update.");
+                return StatusCode(500, "Güncelleme sırasında bir hata meydana geldi.");
             }
         }
 
@@ -82,8 +87,13 @@ namespace SESMAN.Server.Controllers
         {
             try
             {
-                await _service.DeleteAsync(id);
-                return Ok("The collection was successfully deleted.");
+                //başlangıçta bu Id'ye sahip bir kayıt var mı diye kontrol ediyoruz.
+                bool isDeleted = await _service.DeleteAsync(id);
+                if (!isDeleted)
+                {
+                    return NotFound("The request template to be deleted was not found.");
+                }
+                return Ok("The request template was successfully deleted.");
             }
             catch (Exception)
             {

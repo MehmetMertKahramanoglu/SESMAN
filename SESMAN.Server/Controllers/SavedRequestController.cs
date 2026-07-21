@@ -68,7 +68,12 @@ namespace SESMAN.Server.Controllers
 
             try
             {
-                await _service.UpdateAsync(id, dto);
+                //başlangıçta bu Id'ye sahip bir kayıt var mı diye kontrol ediyoruz.
+                bool isUpdated = await _service.UpdateAsync(id, dto);
+                if (!isUpdated)
+                {
+                    return NotFound("The request template to be deleted was not found.");
+                }
                 return Ok("İstek şablonu başarıyla güncellendi.");
             }
             catch (Exception)
@@ -82,12 +87,17 @@ namespace SESMAN.Server.Controllers
         {
             try
             {
-                await _service.DeleteAsync(id);
-                return Ok("İstek şablonu başarıyla silindi.");
+                //başlangıçta bu Id'ye sahip bir kayıt var mı diye kontrol ediyoruz.
+                bool isDeleted = await _service.DeleteAsync(id);
+                if (!isDeleted)
+                {
+                    return NotFound("The request template to be deleted was not found.");
+                }
+                return Ok("The request template was successfully deleted.");
             }
             catch (Exception)
             {
-                return StatusCode(500, "Silme işlemi sırasında bir hata meydana geldi.");
+                return StatusCode(500, "An error occurred during the deletion process.");
             }
         }
     }

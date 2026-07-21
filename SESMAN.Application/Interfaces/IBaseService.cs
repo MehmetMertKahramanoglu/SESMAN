@@ -10,7 +10,7 @@ namespace SESMAN.Application.Interfaces
         Task<List<TDto>> GetAllAsync();
         Task<TDto?> GetByIdAsync(Guid id);
         Task CreateAsync(TCreateDto dto);
-        Task UpdateAsync(Guid id, TUpdateDto dto);
-        Task DeleteAsync(Guid id);
+        Task<bool> UpdateAsync(Guid id, TUpdateDto dto);
+        Task<bool>DeleteAsync(Guid id);
     }
 }

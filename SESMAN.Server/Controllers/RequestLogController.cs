@@ -33,7 +33,7 @@ public async Task<IActionResult> GetAll([FromQuery] int page = 1, [FromQuery] in
         public async Task<IActionResult> GetById(Guid id)
         {
             var result = await _service.GetByIdAsync(id);
-            if (result == null) return NotFound("İlgili kayıt bulunamadı.");
+            if (result == null) return NotFound("No matching record was found.");
             return Ok(result);
         }
 

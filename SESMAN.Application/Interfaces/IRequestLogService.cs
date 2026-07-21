@@ -6,8 +6,6 @@ namespace SESMAN.Application.Interfaces
     {
         Task PatchAsync(Guid id, UpdateRequestLogDto dto);
 
-        new Task<IEnumerable<RequestLogDto>> GetAllAsync();
-
         Task<IEnumerable<RequestLogDto>> GetPagedHistoryAsync(int page, int pageSize);
     }
 }

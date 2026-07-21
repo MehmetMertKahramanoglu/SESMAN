@@ -143,7 +143,7 @@ public class RestRequestService : IRestRequestService
                 {
                     continue;
                 }
-
+                //normal add ile yapılsaydı standart dışı karakterlerde hata alırdık, onun yerine kontrolsüz geçirip istek atılan sunucudan dönüş alınması sağlanıyor.
                 httpRequest.Headers.TryAddWithoutValidation(header.Key, header.Value);
             }
         }
@@ -188,14 +188,28 @@ public class RestRequestService : IRestRequestService
                 }
             }
         }
-        catch (Exception)
+        catch (Exception ex)
         {
             stopwatch.Stop();
 
+            string errorMessage = $"System Error: {ex.Message}";
+
+            //hazır şekilde olan InnerException ile hatanın detaylarını alabiliyoruz. (System.Exception)
+            if (ex.InnerException != null)
+            {
+                errorMessage += $" | Details: {ex.InnerException.Message}";
+            }
+
+            // HttpClient, Timeout (Zaman Aşımı) durumunda TaskCanceledException fırlatır.
+            if (ex is TaskCanceledException)
+            {
+                errorMessage = "System Error: The request timed out after 10 seconds.";
+            }
+
             requestLog.Response = new ResponseLog
             {
-                StatusCode = 0,
-                Body = "System Error - The target server could not be reached or timed out.",
+                StatusCode = 0, // hedefe hiç ulaşılmadıysa
+                Body = errorMessage,
                 ExecutionTimeMs = stopwatch.ElapsedMilliseconds,
                 ResponseHeaders = new List<ResponseHeader>()
             };
