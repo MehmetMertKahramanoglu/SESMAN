@@ -35,7 +35,10 @@ namespace SESMAN.Server.Controllers
         public async Task<IActionResult> GetById(Guid id)
         {
             var result = await _service.GetByIdAsync(id);
-            if (result == null) return NotFound("The relevant collection was not found.");
+            if (result == null)
+            {
+                return NotFound("The relevant collection was not found.");
+            }
             return Ok(result);
         }
 

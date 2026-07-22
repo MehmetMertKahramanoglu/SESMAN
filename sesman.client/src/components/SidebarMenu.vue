@@ -8,29 +8,9 @@ const collectionStore = useCollectionStore();
 
 const activeTab = ref('history'); 
 
-// onMounted(() => {
-//   
-//   const tryFetchHistory = async () => {
-//     const isSuccess = await store.fetchHistory();
-//     if (!isSuccess) {
-//       console.log("Geçmiş çekilemedi, 5 saniye sonra tekrar deneniyor...");
-//       setTimeout(tryFetchHistory, 5000); 
-//     }
-//   };
-
-//  
-//   const tryFetchCollections = async () => {
-//     // collectionStore içindeki fetchCollections hata anında false dönecek şekilde ayarlandığı için bunu da böyle kontrol edebiliriz
-//     await collectionStore.fetchCollections();
-//   };
-
-//   
-//   tryFetchHistory(); 
-//   tryFetchCollections(); 
-// });
-
-const fetchWithRetry = (fetchFn: () => Promise<Boolean>, errorMessage: string, delay = 5000) => {
+const fetchWithRetry = (fetchFn: () => Promise<Boolean>, errorMessage: string, delay = 5000 , maxTry = 5) => {
   return new Promise((resolve) => {
+    let currentTry = 0;
     const attempt = async () => {
       // Fonksiyonu çalıştır ve sonucunu (true/false) bekle
       const isSuccess = await fetchFn();
@@ -38,9 +18,16 @@ const fetchWithRetry = (fetchFn: () => Promise<Boolean>, errorMessage: string, d
       if (isSuccess) {
         // Başarılıysa Promise'i tamamla (resolve)
         resolve(true); 
-      } else {
+      }
+      else if(currentTry >= maxTry) {
         // Başarısızsa bekle ve recursive (kendi kendini) olarak tekrar çağır
-        console.log(`${errorMessage}, ${delay / 1000} saniye sonra tekrar deneniyor...`);
+        console.warn(`${errorMessage}. Maksimum deneme sınırına (${maxTry}) ulaşıldı. İşlem sonlandırılıyor.`);
+        //Backend'in çöktüğünü varsayarak denemeyi bırakıyoruz.
+        resolve(false);
+        
+      }
+      else {
+         console.log(`${errorMessage}, ${delay / 1000} saniye sonra tekrar deneniyor...`);
         setTimeout(attempt, delay);
       }
     };

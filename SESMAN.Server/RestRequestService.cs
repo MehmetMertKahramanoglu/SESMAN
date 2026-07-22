@@ -27,196 +27,195 @@ public class RestRequestService : IRestRequestService
     public async Task<RequestLogDto> ExecuteAndSaveRequestAsync(CreateRequestLogDto dto)
     {
         var requestLog = _mapper.Map<RequestLog>(dto);
-        var client = _httpClientFactory.CreateClient();
 
-        // 10 saniye içinde dönüş olmazsa time out vermesi için
+        using var client = _httpClientFactory.CreateClient();
         client.Timeout = TimeSpan.FromSeconds(10);
 
-        var httpRequest = new HttpRequestMessage(new HttpMethod(dto.Method.ToString()), dto.Url);
+        //isteği oluştur (body ve headerlarla beraber)
+        using var httpRequest = BuildHttpRequest(dto);
 
-        // GET dışındaki isteklere seçilen BodyType'a göre content eklenmesi
+        //isteği gönderip süreyi ölçme kısmı
+        requestLog.Response = await SendRequestAndParseResponseAsync(client, httpRequest);
+
+        //db ye kayıt
+        await _requestLogRepository.AddAsync(requestLog);
+        return _mapper.Map<RequestLogDto>(requestLog);
+    }
+
+
+    private HttpRequestMessage BuildHttpRequest(CreateRequestLogDto dto)
+    {
+        var request = new HttpRequestMessage(new HttpMethod(dto.Method.ToString()), dto.Url);
+
+        // Body ekleme işlemi
         if (!string.IsNullOrWhiteSpace(dto.Body) && dto.Method.ToString() != "GET")
         {
-            // Eğer Vue'dan BodyType gelmezse varsayılan olarak 'raw' kabul et
-            string bodyType = string.IsNullOrWhiteSpace(dto.BodyType) ? "raw" : dto.BodyType;
-
-            switch (bodyType)
-            {
-                case "raw":
-                case "GraphQL":
-                    // Vue'dan gelen Header listesinde "Content-Type" var mı diye bakıyoruz
-                    var contentType = dto.RequestHeaders
-                        .FirstOrDefault(h => h.Key.Equals("Content-Type", StringComparison.OrdinalIgnoreCase))?.Value
-                        ?? "text/plain"; // Eğer bulamazsa varsayılan olarak text/plain olsun
-
-                   
-                    httpRequest.Content = new StringContent(dto.Body, Encoding.UTF8, contentType);
-                    break;
-
-                case "x-www-form-urlencoded":
-                    
-                    var urlEncodedList = JsonSerializer.Deserialize<List<Dictionary<string, string>>>(dto.Body);
-                    var keyValues = new List<KeyValuePair<string, string>>();
-
-                    if (urlEncodedList != null)
-                    {
-                        foreach (var item in urlEncodedList)
-                        {
-                            if (item.TryGetValue("key", out var key) && item.TryGetValue("value", out var val))
-                            {
-                                keyValues.Add(new KeyValuePair<string, string>(key, val));
-                            }
-                        }
-                    }
-                    httpRequest.Content = new FormUrlEncodedContent(keyValues);
-                    break;
-
-
-                case "binary":
-                    // Vue'dan Base64 string olarak gelen body'yi geri byte dizisine çeviriyoruz
-                    byte[] fileBytes = Convert.FromBase64String(dto.Body);
-
-                    // Bunu bir ByteArrayContent'e sarıyoruz (Ham dosya gönderimi)
-                    httpRequest.Content = new ByteArrayContent(fileBytes);
-
-                    // Genellikle binary dosyalarda hedef siteye "Sana ham bir dosya yolluyorum" demek için octet-stream header'ı verilir (böyle kullanılıyormuş)
-                    httpRequest.Content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/octet-stream");
-                    break;
-
-
-
-                case "form-data":
-                    // Multipart Form Data oluşturuyoruz
-                    var multipartContent = new MultipartFormDataContent();
-
-                    // Vue'dan List<Dictionary> olarak gelen veriyi çözüyoruz (key, value, type içeriyor)
-                    var formDataList = JsonSerializer.Deserialize<List<Dictionary<string, string>>>(dto.Body);
-
-                    if (formDataList != null)
-                    {
-                        foreach (var item in formDataList)
-                        {
-                            if (item.TryGetValue("key", out var key) && item.TryGetValue("value", out var val))
-                            {
-                                // Vue'dan type değeri gelmiş mi kontrol et, gelmediyse varsayılan "text" say
-                                string type = item.TryGetValue("type", out var t) ? t : "text";
-
-                                if (type == "file")
-                                {
-                                    // Dosya işlemleri: Base64 string'i byte dizisine çeviriyoruz
-                                    if (!string.IsNullOrEmpty(val))
-                                    {
-                                        byte[] fromBytes = Convert.FromBase64String(val);
-                                        var fileContent = new ByteArrayContent(fromBytes);
-
-                                        // Multipart formData'da dosya eklerken key ve dosya adı parametreleri gerekir
-                                        // Şimdilik dosya adına "uploaded_file" olarak alıyorum. 
-                                        multipartContent.Add(fileContent, key, "uploaded_file");
-                                    }
-                                }
-                                else
-                                {
-                                    // Normal metin işlemleri
-                                    multipartContent.Add(new StringContent(val), key);
-                                }
-                            }
-                        }
-                    }
-                    httpRequest.Content = multipartContent;
-                    break;
-
-                case "none":
-                default:
-                    // Body yok
-                    httpRequest.Content = null;
-                    break;
-
-              
-            }
+            request.Content = CreateHttpContent(dto);
         }
-        // Gönderilen headerların bilgilerini isteğe ekleme
+
+        // Header ekleme işlemi
         if (dto.RequestHeaders != null)
         {
             foreach (var header in dto.RequestHeaders)
             {
                 if (header.Key.Equals("Content-Type", StringComparison.OrdinalIgnoreCase))
-                {
                     continue;
-                }
-                //normal add ile yapılsaydı standart dışı karakterlerde hata alırdık, onun yerine kontrolsüz geçirip istek atılan sunucudan dönüş alınması sağlanıyor.
-                httpRequest.Headers.TryAddWithoutValidation(header.Key, header.Value);
+
+                request.Headers.TryAddWithoutValidation(header.Key, header.Value);
             }
         }
 
+        return request;
+    }
+
+    private HttpContent? CreateHttpContent(CreateRequestLogDto dto)
+    {
+        string bodyType = string.IsNullOrWhiteSpace(dto.BodyType) ? "raw" : dto.BodyType;
+
+        return bodyType switch
+        {
+            "raw" or "GraphQL" => CreateRawContent(dto),
+            "x-www-form-urlencoded" => CreateUrlEncodedContent(dto.Body ?? string.Empty),
+            "binary" => CreateBinaryContent(dto.Body ?? string.Empty),
+            "form-data" => CreateFormDataContent(dto.Body ?? string.Empty),
+            _ => null
+        };
+    }
+
+    private HttpContent CreateRawContent(CreateRequestLogDto dto)
+    {
+        // header listesinde content type'ları aramak için (büyük küçük harf duyarlılığını kaldırmak için StringComparison.OrdinalIgnoreCase)
+        var contentType = dto.RequestHeaders
+            ?.FirstOrDefault(h => h.Key.Equals("Content-Type", StringComparison.OrdinalIgnoreCase))?.Value
+            ?? "text/plain";
+
+        return new StringContent(dto.Body ?? string.Empty, Encoding.UTF8, contentType);
+    }
+
+    private HttpContent CreateUrlEncodedContent(string body)
+    {
+        var urlEncodedList = JsonSerializer.Deserialize<List<Dictionary<string, string>>>(body);
+        var keyValues = new List<KeyValuePair<string, string>>();
+
+        if (urlEncodedList != null)
+        {
+            foreach (var item in urlEncodedList)
+            {
+                if (item.TryGetValue("key", out var key) && item.TryGetValue("value", out var val))
+                {
+                    keyValues.Add(new KeyValuePair<string, string>(key, val));
+                }
+            }
+        }
+        return new FormUrlEncodedContent(keyValues);
+    }
+
+    private HttpContent CreateBinaryContent(string body)
+    {
+        byte[] fileBytes = Convert.FromBase64String(body);
+        var content = new ByteArrayContent(fileBytes);
+        content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/octet-stream");
+        return content;
+    }
+
+    private HttpContent CreateFormDataContent(string body)
+    {
+        var multipartContent = new MultipartFormDataContent();
+        var formDataList = JsonSerializer.Deserialize<List<Dictionary<string, string>>>(body);
+
+        if (formDataList == null) return multipartContent;
+
+        foreach (var item in formDataList)
+        {
+            if (item.TryGetValue("key", out var key) && item.TryGetValue("value", out var val))
+            {
+                string type = item.TryGetValue("type", out var t) ? t : "text";
+
+                if (type == "file" && !string.IsNullOrEmpty(val))
+                {
+                    byte[] fromBytes = Convert.FromBase64String(val);
+                    var fileContent = new ByteArrayContent(fromBytes);
+                    multipartContent.Add(fileContent, key, "uploaded_file");
+                }
+                else
+                {
+                    multipartContent.Add(new StringContent(val), key);
+                }
+            }
+        }
+        return multipartContent;
+    }
+
+    private async Task<ResponseLog> SendRequestAndParseResponseAsync(HttpClient client, HttpRequestMessage request)
+    {
         var stopwatch = Stopwatch.StartNew();
 
         try
         {
-            var httpResponse = await client.SendAsync(httpRequest);
+            var httpResponse = await client.SendAsync(request);
             stopwatch.Stop();
 
-            var responseBody = await httpResponse.Content.ReadAsStringAsync();
-
-            requestLog.Response = new ResponseLog
-            {
-                StatusCode = (int)httpResponse.StatusCode,
-                Body = responseBody,
-                ExecutionTimeMs = stopwatch.ElapsedMilliseconds,
-                ResponseHeaders = new List<ResponseHeader>()
-            };
-
-            // Genel Response Header'larını yakalar
-            foreach (var header in httpResponse.Headers)
-            {
-                requestLog.Response.ResponseHeaders.Add(new ResponseHeader
-                {
-                    Key = header.Key,
-                    Value = string.Join(", ", header.Value)
-                });
-            }
-
-            // İçerik Header'larını yakalar
-            if (httpResponse.Content?.Headers != null)
-            {
-                foreach (var header in httpResponse.Content.Headers)
-                {
-                    requestLog.Response.ResponseHeaders.Add(new ResponseHeader
-                    {
-                        Key = header.Key,
-                        Value = string.Join(", ", header.Value)
-                    });
-                }
-            }
+            return await ParseSuccessResponseAsync(httpResponse, stopwatch.ElapsedMilliseconds);
         }
         catch (Exception ex)
         {
             stopwatch.Stop();
 
-            string errorMessage = $"System Error: {ex.Message}";
+            return ParseErrorResponse(ex, stopwatch.ElapsedMilliseconds);
+        }
+    }
 
-            //hazır şekilde olan InnerException ile hatanın detaylarını alabiliyoruz. (System.Exception)
-            if (ex.InnerException != null)
-            {
-                errorMessage += $" | Details: {ex.InnerException.Message}";
-            }
+    private async Task<ResponseLog> ParseSuccessResponseAsync(HttpResponseMessage httpResponse, long executionTime)
+    {
+        var responseBody = await httpResponse.Content.ReadAsStringAsync();
+        var responseLog = new ResponseLog
+        {
+            StatusCode = (int)httpResponse.StatusCode,
+            Body = responseBody,
+            ExecutionTimeMs = executionTime,
+            ResponseHeaders = new List<ResponseHeader>()
+        };
 
-            // HttpClient, Timeout (Zaman Aşımı) durumunda TaskCanceledException fırlatır.
-            if (ex is TaskCanceledException)
+        // Genel Response Header'ları
+        foreach (var header in httpResponse.Headers)
+        {
+            responseLog.ResponseHeaders.Add(new ResponseHeader
             {
-                errorMessage = "System Error: The request timed out after 10 seconds.";
-            }
-
-            requestLog.Response = new ResponseLog
-            {
-                StatusCode = 0, // hedefe hiç ulaşılmadıysa
-                Body = errorMessage,
-                ExecutionTimeMs = stopwatch.ElapsedMilliseconds,
-                ResponseHeaders = new List<ResponseHeader>()
-            };
+                Key = header.Key,
+                Value = string.Join(", ", header.Value)
+            });
         }
 
-        await _requestLogRepository.AddAsync(requestLog);
+        // İçerik (Content) Header'ları
+        if (httpResponse.Content?.Headers != null)
+        {
+            foreach (var header in httpResponse.Content.Headers)
+            {
+                responseLog.ResponseHeaders.Add(new ResponseHeader
+                {
+                    Key = header.Key,
+                    Value = string.Join(", ", header.Value)
+                });
+            }
+        }
 
-        return _mapper.Map<RequestLogDto>(requestLog);
+        return responseLog;
+    }
+
+    private ResponseLog ParseErrorResponse(Exception ex, long executionTime)
+    {
+        string errorMessage = ex switch
+        {
+            TaskCanceledException => "System Error: The request timed out after 10 seconds.",
+            _ => $"System Error: {ex.Message}" + (ex.InnerException != null ? $" | Details: {ex.InnerException.Message}" : "")
+        };
+
+        return new ResponseLog
+        {
+            StatusCode = 0,
+            Body = errorMessage,
+            ExecutionTimeMs = executionTime,
+            ResponseHeaders = new List<ResponseHeader>()
+        };
     }
 }
