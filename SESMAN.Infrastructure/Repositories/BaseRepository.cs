@@ -33,14 +33,18 @@ namespace SESMAN.Infrastructure.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteAsync(Guid id) //değer silme
+        public async Task<bool> DeleteAsync(Guid id) //değer silme
         {
             var entity = await _dbSet.FindAsync(id);
-            if (entity != null)
+
+            if (entity == null)
             {
-                _dbSet.Remove(entity);
-                await _context.SaveChangesAsync();
+                return false; // Bulunamadıysa false dön
             }
+
+            _dbSet.Remove(entity);
+            await _context.SaveChangesAsync();
+            return true; // Başarıyla silindiyse true dön
         }
     }
     }

@@ -13,6 +13,28 @@ namespace SESMAN.Application.Services
         {
         }
 
+        public new async Task<IEnumerable<RequestLogDto>> GetAllAsync()
+        {
+            // Application katmanı bu Interface'i zaten tanıdığı için hata vermiyor.
+            var customRepo = (IRequestLogRepository)_repository;
+
+            // Artık IRequestLogRepository içindeki Include'lu GetAllAsync çalışacak
+            var logs = await customRepo.GetAllAsync();
+
+            return _mapper.Map<IEnumerable<RequestLogDto>>(logs);
+        }
+
+        public async Task<IEnumerable<RequestLogDto>> GetPagedHistoryAsync(int page, int pageSize)
+        {
+            var customRepo = (IRequestLogRepository)_repository;
+
+            // Artık _repository değil, customRepo üzerinden çağırıyoruz
+            var logs = await customRepo.GetPagedHistoryAsync(page, pageSize);
+
+            // Gelen ham veriyi DTO'ya çevirip Controller'a yolluyoruz
+            return _mapper.Map<IEnumerable<RequestLogDto>>(logs);
+        }
+
         //  PATCH İŞLEMİ 
         public async Task PatchAsync(Guid id, UpdateRequestLogDto dto)
         {
@@ -24,7 +46,7 @@ namespace SESMAN.Application.Services
                 if (!string.IsNullOrEmpty(dto.Method)) existingLog.Method = Enum.Parse<HttpMethodType>(dto.Method, true);
                 if (!string.IsNullOrEmpty(dto.Body)) existingLog.Body = dto.Body;
 
-                // BAŞLIKLAR İÇİN AKILLI GÜNCELLEME
+                // headers güncelleme
               
                     var incomingHeaderIds = dto.RequestHeaders
                         .Where(h => h.Id != Guid.Empty)
@@ -54,9 +76,6 @@ namespace SESMAN.Application.Services
                         }
                     }
                 
-
-                
-             
                     var incomingParamIds = dto.RequestParameters
                         .Where(p => p.Id != Guid.Empty)
                         .Select(p => p.Id)
@@ -92,15 +111,17 @@ namespace SESMAN.Application.Services
         }
 
         // PUT İŞLEMİ
-        public override async Task UpdateAsync(Guid id, UpdateRequestLogDto dto)
+        public override async Task<bool> UpdateAsync(Guid id, UpdateRequestLogDto dto)
         {
             var entity = await _repository.GetByIdAsync(id);
-            if (entity != null)
+            if (entity == null)
             {
+                return false;
+            }
                 // Ana Tablo Güncellemesi
                 _mapper.Map(dto, entity);
 
-                // BAŞLIKLAR İÇİN AKILLI GÜNCELLEME
+                // headers güncelleme
                 if (dto.RequestHeaders != null)
                 {
                     var incomingHeaderIds = dto.RequestHeaders
@@ -132,7 +153,7 @@ namespace SESMAN.Application.Services
                     }
                 }
 
-                // PARAMETRELER İÇİN AKILLI GÜNCELLEME
+                // parametre güncelleme
              
                     var incomingParamIds = dto.RequestParameters
                         .Where(p => p.Id != Guid.Empty)
@@ -164,7 +185,7 @@ namespace SESMAN.Application.Services
                 
 
                 await _repository.UpdateAsync(entity);
+            return true;
             }
         }
     }
-}

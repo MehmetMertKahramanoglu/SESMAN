@@ -41,6 +41,29 @@ namespace SESMAN.Application.Mappings
    
             CreateMap<UpdateResponseLogDto, ResponseLog>()
                 .ForMember(dest => dest.ResponseHeaders, opt => opt.Ignore());
+
+
+
+            // Collection Eşlemeleri
+            CreateMap<CollectionDto, Collection>();
+            CreateMap<Collection, CollectionDto>();
+
+            CreateMap<CreateCollectionDto, Collection>();
+            CreateMap<Collection, CreateCollectionDto>();
+
+            // SavedRequest Eşlemeleri
+            CreateMap<SavedRequestDto, SavedRequest>();
+            CreateMap<SavedRequest, SavedRequestDto>();
+
+            CreateMap<CreateSavedRequestDto, SavedRequest>();
+            CreateMap<SavedRequest, CreateSavedRequestDto>();
+
+            //SavedHeader ve SavedParameter Eşlemeleri
+            CreateMap<SavedRequestHeaderDto, SavedRequestHeader>();
+            CreateMap<SavedRequestHeader, SavedRequestHeaderDto>();
+
+            CreateMap<SavedRequestParameterDto, SavedRequestParameter>();
+            CreateMap<SavedRequestParameter, SavedRequestParameterDto>();
         }
     }
 }

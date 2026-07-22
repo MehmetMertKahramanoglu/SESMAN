@@ -22,6 +22,27 @@ namespace SESMAN.Infrastructure.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("SESMAN.Domain.Entities.Collection", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Collections");
+                });
+
             modelBuilder.Entity("SESMAN.Domain.Entities.RequestHeader", b =>
                 {
                     b.Property<Guid>("Id")
@@ -61,11 +82,17 @@ namespace SESMAN.Infrastructure.Migrations
                     b.Property<string>("Body")
                         .HasColumnType("text");
 
+                    b.Property<string>("BodyType")
+                        .HasColumnType("text");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Method")
                         .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("RawType")
                         .HasColumnType("text");
 
                     b.Property<DateTime?>("UpdatedAt")
@@ -172,6 +199,107 @@ namespace SESMAN.Infrastructure.Migrations
                     b.ToTable("ResponseLogs");
                 });
 
+            modelBuilder.Entity("SESMAN.Domain.Entities.SavedRequest", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Body")
+                        .HasColumnType("text");
+
+                    b.Property<string>("BodyType")
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("CollectionId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("Method")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<string>("RawType")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Url")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CollectionId");
+
+                    b.ToTable("SavedRequests");
+                });
+
+            modelBuilder.Entity("SESMAN.Domain.Entities.SavedRequestHeader", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Key")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("SavedRequestId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Value")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SavedRequestId");
+
+                    b.ToTable("SavedRequestHeaders");
+                });
+
+            modelBuilder.Entity("SESMAN.Domain.Entities.SavedRequestParameter", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Key")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("SavedRequestId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Value")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SavedRequestId");
+
+                    b.ToTable("SavedRequestParameters");
+                });
+
             modelBuilder.Entity("SESMAN.Domain.Entities.RequestHeader", b =>
                 {
                     b.HasOne("SESMAN.Domain.Entities.RequestLog", null)
@@ -210,6 +338,38 @@ namespace SESMAN.Infrastructure.Migrations
                     b.Navigation("RequestLog");
                 });
 
+            modelBuilder.Entity("SESMAN.Domain.Entities.SavedRequest", b =>
+                {
+                    b.HasOne("SESMAN.Domain.Entities.Collection", null)
+                        .WithMany("SavedRequests")
+                        .HasForeignKey("CollectionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("SESMAN.Domain.Entities.SavedRequestHeader", b =>
+                {
+                    b.HasOne("SESMAN.Domain.Entities.SavedRequest", null)
+                        .WithMany("SavedRequestHeaders")
+                        .HasForeignKey("SavedRequestId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("SESMAN.Domain.Entities.SavedRequestParameter", b =>
+                {
+                    b.HasOne("SESMAN.Domain.Entities.SavedRequest", null)
+                        .WithMany("SavedRequestParameters")
+                        .HasForeignKey("SavedRequestId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("SESMAN.Domain.Entities.Collection", b =>
+                {
+                    b.Navigation("SavedRequests");
+                });
+
             modelBuilder.Entity("SESMAN.Domain.Entities.RequestLog", b =>
                 {
                     b.Navigation("RequestHeaders");
@@ -222,6 +382,13 @@ namespace SESMAN.Infrastructure.Migrations
             modelBuilder.Entity("SESMAN.Domain.Entities.ResponseLog", b =>
                 {
                     b.Navigation("ResponseHeaders");
+                });
+
+            modelBuilder.Entity("SESMAN.Domain.Entities.SavedRequest", b =>
+                {
+                    b.Navigation("SavedRequestHeaders");
+
+                    b.Navigation("SavedRequestParameters");
                 });
 #pragma warning restore 612, 618
         }

@@ -7,5 +7,7 @@ namespace SESMAN.Domain.ReposInterfaces
 {
     public interface IRequestLogRepository : IBaseRepository<RequestLog>
     {
+        new Task<IEnumerable<RequestLog>> GetAllAsync();
+        Task<IEnumerable<RequestLog>> GetPagedHistoryAsync(int page, int pageSize);
     }
 }
