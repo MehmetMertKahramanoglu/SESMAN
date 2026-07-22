@@ -12,6 +12,7 @@ const fetchWithRetry = (fetchFn: () => Promise<Boolean>, errorMessage: string, d
   return new Promise((resolve) => {
     let currentTry = 0;
     const attempt = async () => {
+      currentTry++;
       // Fonksiyonu çalıştır ve sonucunu (true/false) bekle
       const isSuccess = await fetchFn();
       
