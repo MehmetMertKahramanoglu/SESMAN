@@ -34,17 +34,20 @@ public class RestRequestService : IRestRequestService
         //isteği oluştur (body ve headerlarla beraber)
         using var httpRequest = BuildHttpRequest(dto);
 
-        // İsteği gönder. süreyi ve hatayı yakala
-        var (httpResponse, exception, elapsedMs) = await ExecuteRequestAsync(client, httpRequest);
+        var stopwatch = Stopwatch.StartNew();
 
-        // Sonuca göre ilgili Parse metodunu çağır 
-        if (exception != null)
+        try
         {
-            requestLog.Response = ParseErrorResponse(exception, elapsedMs);
+            var httpResponse = await client.SendAsync(httpRequest);
+            stopwatch.Stop();
+
+            requestLog.Response = await ParseSuccessResponseAsync(httpResponse, stopwatch.ElapsedMilliseconds);
         }
-        else
+        catch (Exception ex)
         {
-            requestLog.Response = await ParseSuccessResponseAsync(httpResponse!, elapsedMs);
+            stopwatch.Stop();
+
+            requestLog.Response = ParseErrorResponse(ex, stopwatch.ElapsedMilliseconds);
         }
 
         //db ye kayıt
@@ -154,26 +157,6 @@ public class RestRequestService : IRestRequestService
             }
         }
         return multipartContent;
-    }
-
-    //3 farklı tuple dönüyoruz. Response, error, ElapsedMs
-    private async Task<(HttpResponseMessage? Response, Exception? Error, long ElapsedMs)> ExecuteRequestAsync(HttpClient client, HttpRequestMessage request)
-    {
-        var stopwatch = Stopwatch.StartNew();
-
-        try
-        {
-            var response = await client.SendAsync(request);
-            stopwatch.Stop();
-
-            return (response, null, stopwatch.ElapsedMilliseconds);
-        }
-        catch (Exception ex)
-        {
-            stopwatch.Stop();
-
-            return (null, ex, stopwatch.ElapsedMilliseconds);
-        }
     }
 
     private async Task<ResponseLog> ParseSuccessResponseAsync(HttpResponseMessage httpResponse, long executionTime)

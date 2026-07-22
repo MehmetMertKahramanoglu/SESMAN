@@ -48,15 +48,8 @@ namespace SESMAN.Application.Services
 
         public async Task<bool> DeleteAsync(Guid id)
         {
-            // veritabanı kısmında bu ID var mı kontrolü
-            var entity =  await _repository.GetByIdAsync(id);
-            if (entity == null)
-            {
-                return false;
-            }
-
-            await _repository.DeleteAsync(id);
-            return true;
+            //direkt repo kısmına delete işlemi gönderiliyor. Bulunamazsa false dönüşü alınıyor.
+            return await _repository.DeleteAsync(id);
         }
     }
 }

@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SESMAN.Server")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b6e11ee9b805931188a2b85ffd1691bb4127cab2")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4044ece9bc8ab3d419cad36a262cf0e3e4c78585")]
 [assembly: System.Reflection.AssemblyProductAttribute("SESMAN.Server")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SESMAN.Server")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
