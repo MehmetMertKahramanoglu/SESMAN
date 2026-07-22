@@ -76,9 +76,6 @@ namespace SESMAN.Application.Services
                         }
                     }
                 
-
-                
-             
                     var incomingParamIds = dto.RequestParameters
                         .Where(p => p.Id != Guid.Empty)
                         .Select(p => p.Id)
