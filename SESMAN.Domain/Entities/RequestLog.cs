@@ -23,5 +23,7 @@ namespace SESMAN.Domain.Entities
 
         //1-1 olunca bu yapı kullanılır.
         public virtual ResponseLog? Response {  get; set; }
+
+        public AuthConfig? Auth { get; set; } //bu db kısmında json şekilde tek kolonda duracak.
     }
 }

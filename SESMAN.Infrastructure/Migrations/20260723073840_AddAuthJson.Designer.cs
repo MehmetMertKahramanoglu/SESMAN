@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using SESMAN.Infrastructure;
@@ -11,9 +12,11 @@ using SESMAN.Infrastructure;
 namespace SESMAN.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260723073840_AddAuthJson")]
+    partial class AddAuthJson
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -40,7 +43,7 @@ namespace SESMAN.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Collections", (string)null);
+                    b.ToTable("Collections");
                 });
 
             modelBuilder.Entity("SESMAN.Domain.Entities.RequestHeader", b =>
@@ -70,7 +73,7 @@ namespace SESMAN.Infrastructure.Migrations
 
                     b.HasIndex("RequestLogId");
 
-                    b.ToTable("RequestHeaders", (string)null);
+                    b.ToTable("RequestHeaders");
                 });
 
             modelBuilder.Entity("SESMAN.Domain.Entities.RequestLog", b =>
@@ -104,7 +107,7 @@ namespace SESMAN.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("RequestLogs", (string)null);
+                    b.ToTable("RequestLogs");
                 });
 
             modelBuilder.Entity("SESMAN.Domain.Entities.RequestParameter", b =>
@@ -134,7 +137,7 @@ namespace SESMAN.Infrastructure.Migrations
 
                     b.HasIndex("RequestLogId");
 
-                    b.ToTable("RequestParameters", (string)null);
+                    b.ToTable("RequestParameters");
                 });
 
             modelBuilder.Entity("SESMAN.Domain.Entities.ResponseHeader", b =>
@@ -164,7 +167,7 @@ namespace SESMAN.Infrastructure.Migrations
 
                     b.HasIndex("ResponseLogId");
 
-                    b.ToTable("ResponseHeaders", (string)null);
+                    b.ToTable("ResponseHeaders");
                 });
 
             modelBuilder.Entity("SESMAN.Domain.Entities.ResponseLog", b =>
@@ -196,7 +199,7 @@ namespace SESMAN.Infrastructure.Migrations
                     b.HasIndex("RequestLogId")
                         .IsUnique();
 
-                    b.ToTable("ResponseLogs", (string)null);
+                    b.ToTable("ResponseLogs");
                 });
 
             modelBuilder.Entity("SESMAN.Domain.Entities.SavedRequest", b =>
@@ -237,7 +240,7 @@ namespace SESMAN.Infrastructure.Migrations
 
                     b.HasIndex("CollectionId");
 
-                    b.ToTable("SavedRequests", (string)null);
+                    b.ToTable("SavedRequests");
                 });
 
             modelBuilder.Entity("SESMAN.Domain.Entities.SavedRequestHeader", b =>
@@ -267,7 +270,7 @@ namespace SESMAN.Infrastructure.Migrations
 
                     b.HasIndex("SavedRequestId");
 
-                    b.ToTable("SavedRequestHeaders", (string)null);
+                    b.ToTable("SavedRequestHeaders");
                 });
 
             modelBuilder.Entity("SESMAN.Domain.Entities.SavedRequestParameter", b =>
@@ -297,7 +300,7 @@ namespace SESMAN.Infrastructure.Migrations
 
                     b.HasIndex("SavedRequestId");
 
-                    b.ToTable("SavedRequestParameters", (string)null);
+                    b.ToTable("SavedRequestParameters");
                 });
 
             modelBuilder.Entity("SESMAN.Domain.Entities.RequestHeader", b =>
@@ -332,7 +335,7 @@ namespace SESMAN.Infrastructure.Migrations
 
                             b1.HasKey("RequestLogId");
 
-                            b1.ToTable("RequestLogs", (string)null);
+                            b1.ToTable("RequestLogs");
 
                             b1
                                 .ToJson("Auth")
@@ -403,7 +406,7 @@ namespace SESMAN.Infrastructure.Migrations
 
                             b1.HasKey("SavedRequestId");
 
-                            b1.ToTable("SavedRequests", (string)null);
+                            b1.ToTable("SavedRequests");
 
                             b1
                                 .ToJson("Auth")

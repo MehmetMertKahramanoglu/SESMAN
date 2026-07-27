@@ -19,5 +19,7 @@ namespace SESMAN.Application.DTOs
 
         public virtual ICollection<SavedRequestHeaderDto> SavedRequestHeaders { get; set; } = new List<SavedRequestHeaderDto>();
         public virtual ICollection<SavedRequestParameterDto> SavedRequestParameters { get; set; } = new List<SavedRequestParameterDto>();
+
+        public AuthConfigDto? Auth { get; set; }
     }
 }

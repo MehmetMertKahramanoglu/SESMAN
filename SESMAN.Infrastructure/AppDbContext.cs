@@ -60,29 +60,51 @@ namespace SESMAN.Infrastructure
         .WithOne()                              // AMA Parameter'ın içinde geriye dönüş YOKTUR!
         .HasForeignKey(p => p.SavedRequestId)
         .OnDelete(DeleteBehavior.Cascade);
+
+
+        //JSON çevirme kısımları
+            base.OnModelCreating(modelBuilder);
+            //Request kısmı için Json'a çevirme kısmı
+            modelBuilder.Entity<RequestLog>(builder =>
+            {
+            builder.OwnsOne(r => r.Auth, authBuilder=>
+                {
+                    authBuilder.ToJson();
+            });
+            });
+
+            //saved request kısmı için Json'a çevirme kısmı
+            modelBuilder.Entity<SavedRequest>(builder =>
+            {
+            builder.OwnsOne(r => r.Auth, authBuilder => 
+                    {
+                        authBuilder.ToJson();
+            });
+            });
         }
 
+        //bu kısım tarih atamayı tek yerden yapmak için var. Her serviste tek tek tarih ataması yapmamak için.
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
-            // Tracker veritabanına gitmek üzere olan tüm verileri yakalar
+            // Tracker veritabanına gitmek üzere olan tüm verileri yakalar(BaseEntity soyundan gelenleri yakalar.)
             var entries = ChangeTracker.Entries<BaseEntity>();
 
             foreach (var entry in entries)
             {
-                // Eğer bu yeni eklenen (Insert) bir kayıt ise oluşturulma tarihini bas
-                if (entry.State == EntityState.Added)
+                // Eğer bu yeni eklenen (Insert) bir kayıt ise oluşturulma tarihini bas (BaseRepository içinde AddAsync ile Added etiketi basılmıştı üzerine.)
+                if (entry.State == EntityState.Added) //yeni kayıt olduğunda buraya girer
                 {
                     entry.Entity.CreatedAt = DateTime.UtcNow;
                 }
 
                 // Güncelleme anında o anki tarihi UpdatedAt'e bas
-                else if (entry.State == EntityState.Modified)
+                else if (entry.State == EntityState.Modified) //eğer güncellemeyse buraya girer
                 {
                     entry.Entity.UpdatedAt = DateTime.UtcNow;
                 }
             }
 
-            return base.SaveChangesAsync(cancellationToken);
+            return base.SaveChangesAsync(cancellationToken); //buradaki base ifadesiyle normalde EF içindeki SaveChangesAsync çalışır ve db ye yazılır.
         }
     }
         

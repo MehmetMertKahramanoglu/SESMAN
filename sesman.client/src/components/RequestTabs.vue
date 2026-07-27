@@ -61,70 +61,71 @@ const activeTab = ref('Params');
       </div>
 
 
-        <!-- Authorization kısmı -->
-<div v-if="activeTab === 'Authorization'">
+     <!-- Authorization kısmı -->
+        <div v-if="activeTab === 'Authorization'">
+          <label class="block text-sm font-medium mb-2">Type</label>
+          
+         
+          <select v-model="store.auth.type" class="simple-input">
+            <option value="none">No Auth</option>
+            <option value="basic">Basic Auth</option>
+            <option value="bearer">Bearer Token</option>
+            <option value="oauth2">OAuth 2.0</option>
+            <option value="apikey">API Key</option>
+          </select>
 
-  <label>Type</label>
+          <!-- Bearer ve OAuth 2.0 (İkisi de token kullanıyor) -->
+          <div v-if="store.auth.type === 'bearer' || store.auth.type === 'oauth2'" class="auth-section">
+            <label class="block text-sm font-medium">Token</label>
+            <input
+              v-model="store.auth.token"
+              class="simple-input"
+              placeholder="eyJhbGciOiJIUzI1NiIs..."
+            />
+          </div>
 
-  <select v-model="store.authType" class="simple-input">
-    <option value="No Auth">No Auth</option>
-    <option value="Basic Auth">Basic Auth</option>
-    <option value="Bearer Token">Bearer Token</option>
-    <option value="OAuth 2.0">OAuth 2.0</option>
-    <option value="API Key">API Key</option>
-  </select>
+          <!-- Basic Auth -->
+          <div v-if="store.auth.type === 'basic'" class="auth-section">
+            <label class="block text-sm font-medium">Username</label>
+            <input
+              v-model="store.auth.username"
+              class="simple-input"
+              placeholder="Username"
+            />
+            
+            <label class="block text-sm font-medium">Password</label>
+            <input
+              v-model="store.auth.password"
+              class="simple-input"
+              type="password"
+              placeholder="password"
+            />
+          </div>
 
-  <!-- Bearer -->
-  <div v-if="store.authType === 'Bearer Token'" class="auth-section">
-    <input
-      v-model="store.bearerToken"
-      class="simple-input"
-      placeholder="Bearer Token"
-    />
-  </div>
+          <!-- API Key -->
+          <div v-if="store.auth.type === 'apikey'" class="auth-section">
+            <label class="block text-sm font-medium">Key</label>
+            <input
+              v-model="store.auth.apiKeyName"
+              class="simple-input"
+              placeholder="e.g: X-API-KEY"
+            />
+            
+            <label class="block text-sm font-medium">Value</label>
+            <input
+              v-model="store.auth.apiKeyValue"
+              class="simple-input"
+              placeholder="e.g: 12345-ABCDE"
+            />
 
-  <!-- Basic -->
-  <div v-if="store.authType === 'Basic Auth'" class="auth-section">
-    <input
-      v-model="store.basicUsername"
-      class="simple-input"
-      placeholder="Username"
-    />
-
-    <input
-      v-model="store.basicPassword"
-      class="simple-input"
-      type="password"
-      placeholder="Password"
-    />
-  </div>
-
-  <!-- API Key -->
-  <div v-if="store.authType === 'API Key'" class="auth-section">
-    <input
-      v-model="store.apiKey"
-      class="simple-input"
-      placeholder="API Key"
-    />
-
-    <input
-      v-model="store.apiKeyHeader"
-      class="simple-input"
-      placeholder="Header Name (e.g. x-api-key)"
-    />
-  </div>
-
-  <!-- OAuth 2.0 -->
-  <div v-if="store.authType === 'OAuth 2.0'" class="auth-section">
-    <label>Access Token</label>
-    <input
-      v-model="store.oauthToken"
-      class="simple-input"
-      placeholder="Access Token"
-    />
-  </div>
-  
-</div>
+            <label class="block text-sm font-medium">Add To</label>
+            <select v-model="store.auth.apiKeyAddTo" class="simple-input">
+              <option value="header">Header</option>
+              <option value="query">Query Params</option>
+            </select>
+          </div>
+          
+        </div>
 
 
       <!-- Header bilgileri -->

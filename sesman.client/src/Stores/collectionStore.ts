@@ -3,6 +3,16 @@ import { ref } from 'vue';
 import axios from 'axios';
 
 
+export interface AuthConfigDto {
+    type: string;
+    username?: string;
+    password?: string;
+    token?: string;
+    apiKeyName?: string;
+    apiKeyValue?: string;
+    apiKeyAddTo?: string;
+}
+
 // Sağ ekrandan yeni isteğin tipi 
 export interface CreateSavedRequestDto {
   name: string;
@@ -13,6 +23,8 @@ export interface CreateSavedRequestDto {
   bodyType?: string | null; 
   savedRequestHeaders?: { key: string; value: string }[];
   savedRequestParameters?: { key: string; value: string }[];
+
+  auth?: AuthConfigDto;
 }
 
 // Backend'den gelen kayıtlı isteğin tipi 
@@ -27,6 +39,8 @@ export interface SavedRequest {
   createdAt: string;
   savedRequestHeaders?: { key: string; value: string }[];
   savedRequestParameters?: { key: string; value: string }[];
+
+  auth?: AuthConfigDto;
 }
 
 // Backend'den gelen Klasör tipi
@@ -76,13 +90,17 @@ export const useCollectionStore = defineStore('collection', () => {
     };
 
     // Sağ ekranda oluşturulan isteği kaydetmek için
+    //burada RequestBar tarafından gelen payload requestData'ya atanıyor. Ve CreateSavedRequestDto'in içindeki bütün değerler var mı diye kontrol ediliyor (bu kontrol amaçlı kod yazarken hata veriyor uyumsuzluk durumunda.)
     const saveNewRequest = async (requestData: CreateSavedRequestDto) => {
         try {
-            await axios.post(`${API_BASE_URL}/SavedRequest`, requestData);
-            // Ekledikten sonra klasörün altını güncellemek için çağırıyorum
-            await fetchCollections(); 
+            await axios.post(`${API_BASE_URL}/SavedRequest`, requestData); //burada C# tarafını bekleyip devam etmesi için await yazdık. requestData SavedRequestController kısmına gider (post olduğu için [HttpPost] kısmına gider.) 
+            // Backend tarafından kayıt başarılı geldikten sonra fetchCollections çağırılır
+            await fetchCollections();
+            //ve true dönüp RequestBar kısmındaki isSucces'i true yapar.
             return true;
-        } catch (error) {
+        }
+        catch (error) 
+        {
             console.error('The request template could not be saved:', error);
             return false;
         }

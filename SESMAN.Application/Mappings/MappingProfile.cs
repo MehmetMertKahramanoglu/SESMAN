@@ -31,7 +31,7 @@ namespace SESMAN.Application.Mappings
                 .ForMember(dest => dest.RequestHeaders, opt => opt.Ignore())
                 .ForMember(dest => dest.RequestParameters, opt => opt.Ignore());
 
-    
+            
       
             CreateMap<ResponseLog, ResponseLogDto>();
 
@@ -64,6 +64,11 @@ namespace SESMAN.Application.Mappings
 
             CreateMap<SavedRequestParameterDto, SavedRequestParameter>();
             CreateMap<SavedRequestParameter, SavedRequestParameterDto>();
+
+            //auth eşleşmeleri
+            CreateMap<AuthConfigDto, AuthConfig>();
+            CreateMap<AuthConfig, AuthConfigDto>();
+
         }
     }
 }

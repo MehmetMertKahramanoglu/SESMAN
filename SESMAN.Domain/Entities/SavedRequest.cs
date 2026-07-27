@@ -20,5 +20,7 @@ namespace SESMAN.Domain.Entities
         //1-n olunca ICollection yapısı kullanılır.
         public virtual ICollection<SavedRequestParameter> SavedRequestParameters { get; set; } = new List<SavedRequestParameter>();
         public virtual ICollection<SavedRequestHeader> SavedRequestHeaders { get; set; } = new List<SavedRequestHeader>();
+
+        public AuthConfig? Auth { get; set; } //bu db kısmında json şekilde tek kolonda duracak.
     }
 }

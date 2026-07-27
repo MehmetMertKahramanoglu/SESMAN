@@ -20,5 +20,9 @@ namespace SESMAN.Application.DTOs
         // İstek kaydedilirken header ve parametre şablonları da beraberinde gelsin
         public ICollection<SavedRequestHeaderDto> SavedRequestHeaders { get; set; } = new List<SavedRequestHeaderDto>();
         public ICollection<SavedRequestParameterDto> SavedRequestParameters { get; set; } = new List<SavedRequestParameterDto>();
+
+
+        //burada HAS-A yapısı ile vue tarafında veri göndereceğim zaman paket halinde düzenli şekilde göndermeyi yaptım.
+        public AuthConfigDto? Auth { get; set; }
     }
 }
