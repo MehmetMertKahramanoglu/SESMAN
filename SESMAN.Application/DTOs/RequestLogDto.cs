@@ -21,6 +21,8 @@ namespace SESMAN.Application.DTOs
         public List<RequestParameterDto> RequestParameters { get; set; } = new();
 
         public ResponseLogDto? Response { get; set; }
-       
+
+        public AuthConfigDto? Auth { get; set; }
+
     }
 }

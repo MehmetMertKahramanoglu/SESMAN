@@ -10,6 +10,16 @@ import type {
     ResponseLogDto,
 } from '@/types/sesman';
 
+export interface AuthConfigDto {
+    type: string;
+    username?: string;
+    password?: string;
+    token?: string;
+    apiKeyName?: string;
+    apiKeyValue?: string;
+    apiKeyAddTo?: string;
+}
+
 // Geçmiş isteklerin tutulacağı model
 export interface HistoryItemDto {
     id?: string;
@@ -21,7 +31,10 @@ export interface HistoryItemDto {
     requestHeaders?: RequestHeaderDto[];
     requestParameters?: RequestParameterDto[];
     response?: ResponseLogDto;
+
+    auth?: AuthConfigDto;
 }
+
 
 // request store (pinia sayesinde direkt 1 store oluşturdum)
 export const useRequestStore = defineStore('request', () => {
@@ -29,12 +42,22 @@ export const useRequestStore = defineStore('request', () => {
     //Buradaki tanımlamalar pinia sayesinde ortak bir hafıza olmasını sağlıyor. Değişim olduğunda bildirmeme gerek kalmıyor (emit yapılmasına gerek kalmıyor).
     const url = ref<string>('');
     const method = ref<string>('GET');
-    const body = ref<string>('{\n  "isim": "Mert",\n  "yas": 23\n}'); //raw için kullanılacak
+    const body = ref<string>('{\n  "Name": "Mert",\n  "Age": 23\n}'); //raw için kullanılacak
 
     const binaryContent = ref<string>(''); // Base64'e çevrilmiş dosya içeriği
 
     const bodyType = ref<string>('raw'); // none, form-data, x-www-form-urlencoded, raw, binary, GraphQL /Default olarak raw başlar
     const rawType = ref<string>('JSON'); // JSON, Text, XML vb.
+
+    const auth = ref({
+        type: 'none',
+        username: '',
+        password: '',
+        token: '',
+        apiKeyName: '',
+        apiKeyValue: '',
+        apiKeyAddTo: 'header',
+    });
     
     const formDataList = ref([{ key: '', value: '', type: 'text' }]); //form-data için
     const urlEncodedList = ref([{ key: '', value: '' }]);
@@ -97,7 +120,7 @@ export const useRequestStore = defineStore('request', () => {
                 hasMore.value = true; 
             }
 
-            const res = await axios.get(`https://localhost:7076/api/RequestLog?page=${currentPage.value}&pageSize=10`);
+            const res = await axios.get(`https://localhost:7076/api/RequestLog?page=${currentPage.value}&pageSize=10`); //burada RequestLogControllera gidilir. (Get olduğu için [HttpGet]).
             
             if (res.data.length < 10) {
                 hasMore.value = false;
@@ -171,15 +194,23 @@ export const useRequestStore = defineStore('request', () => {
             // raw veya tanımsız ise doğrudan raw kutusuna bas
             body.value = item.body || ''; 
         }
+
+        if (item.auth) {
+        // Burada Parse işlemi yapılıyor. (Auth için)
+        auth.value = JSON.parse(JSON.stringify(item.auth));
+    }
+    else {
+        auth.value = { type: 'none', username: '', password: '', token: '', apiKeyName: '', apiKeyValue: '', apiKeyAddTo: 'header' };
+    }
     };
 
     // Backend tarafına istek göndermek için
     const sendRequest = async () => {
-        if (!url.value) {
+        if (!url.value) { //URL boş mu kontrolü
             alert("URL bulunamadı");
             return;
         }
-
+        //URL boş değilse buton pasif hale gelir ve bekleme durumuna geçilir.
         isLoading.value = true;
         
         try {
@@ -208,12 +239,14 @@ export const useRequestStore = defineStore('request', () => {
                 finalBody = binaryContent.value; 
             }
 
-            // --- YENİ AŞAMA: Otomatik Content-Type Ekleme ---
-            const finalHeaders = requestHeaders.value.map(h => ({ key: h.key, value: h.value }));            
-            // Kullanıcı Headers sekmesinden manuel "Content-Type" girdiyse onu bozmayalım
-            const hasContentType = finalHeaders.some(h => h.key.toLowerCase() === 'content-type');
 
-            if (!hasContentType) {
+
+
+            const finalHeaders = requestHeaders.value.map(h => ({ key: h.key, value: h.value }));  //burada requestHeaders'taki fazla verilerden arındırılmış içinde sadece key ve value olan bir liste hazırlanıyor.          
+            // Kullanıcı Headers sekmesinden manuel "Content-Type" girdiyse onu bozmayalım
+            const hasContentType = finalHeaders.some(h => h.key.toLowerCase() === 'content-type'); //bu kısımda finalHeaders'ın içi kontrol edilir ve content-type varsa true dönüp alttaki işlemlerin yapılması engellenir.(düzeltmeye ihtiyaç kalmamış oluyor)
+
+            if (!hasContentType) {//content Type unutulduysa bu kısım çalışır ve gerekli şekilde doldurulur.(kullanıcının seçtiği türe göre)
                 if (bodyType.value === 'raw') {
                     let mimeType = 'text/plain'; // Varsayılan
 
@@ -221,13 +254,13 @@ export const useRequestStore = defineStore('request', () => {
                     else if (rawType.value === 'XML') mimeType = 'application/xml';
                     else if (rawType.value === 'HTML') mimeType = 'text/html';
 
-                    finalHeaders.push({ key: 'Content-Type', value: mimeType });
+                    finalHeaders.push({ key: 'Content-Type', value: mimeType }); //en son finalHeaders'ın sonuna eklenir.
                 } 
-                else if (bodyType.value === 'GraphQL') {
-                    finalHeaders.push({ key: 'Content-Type', value: 'application/json' });
+                else if (bodyType.value === 'GraphQL') { //GraphQL'de her zaman Json olduğu için direkt json yapıştırılır.
+                    finalHeaders.push({ key: 'Content-Type', value: 'application/json' }); 
                 }
             }
-            // ------------------------------------------------
+      
 
             // Backend tarafına gönderilecek ana payload'u hazırlama
             const payload = {
@@ -235,15 +268,16 @@ export const useRequestStore = defineStore('request', () => {
                 method: method.value,
                 body: finalBody, 
                 bodyType: bodyType.value,
-                rawType: rawType.value, // YENİ: C#'a gönderiyoruz
-                requestHeaders: finalHeaders, // YENİ: Content-Type eklenmiş listeyi yolluyoruz
-                requestParameters: requestParameters.value.map(p => ({ key: p.key, value: p.value }))
+                rawType: rawType.value, //  C#'a gönderiyoruz
+                requestHeaders: finalHeaders, // Content-Type eklenmiş listeyi yolluyoruz
+                requestParameters: requestParameters.value.map(p => ({ key: p.key, value: p.value })),
+                auth: auth.value
             };
             
             const apiUrl = 'https://localhost:7076/api/Integration';
-            const res = await axios.post(apiUrl, payload);
+            const res = await axios.post(apiUrl, payload); //burada hazırlanan payload içindeki veriler IntegrationController kısmına yollanır (post olduğu için [HttpPost])
 
-            response.value = res.data.response;
+            response.value = res.data.response; //C# tarafından dönen res değişkeni, response.value'ye yazılır.
             await fetchHistory();
             
         } catch (error) {
@@ -252,7 +286,8 @@ export const useRequestStore = defineStore('request', () => {
         } finally {
             isLoading.value = false;
         }
-    };
+    };   
+
 
     //dışarıda kullanabilmek için return alıyorum. Pinia bu kısımları dışarıda direkt kullanmamı sağlıyor.
     return {
@@ -280,6 +315,7 @@ export const useRequestStore = defineStore('request', () => {
         urlEncodedList,
         graphqlQuery,
         graphqlVariables,
-        binaryContent
+        binaryContent,
+        auth
     };
 });

@@ -4,6 +4,7 @@ using SESMAN.Domain.Entities;
 using SESMAN.Domain.ReposInterfaces;
 using SESMAN.Server;
 using System.Diagnostics;
+using System.Diagnostics.Eventing.Reader;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
@@ -24,35 +25,42 @@ public class RestRequestService : IRestRequestService
         _mapper = mapper;
     }
 
-    public async Task<RequestLogDto> ExecuteAndSaveRequestAsync(CreateRequestLogDto dto)
+    public async Task<RequestLogDto> ExecuteAndSaveRequestAsync(CreateRequestLogDto dto) 
     {
-        var requestLog = _mapper.Map<RequestLog>(dto);
+        //maplemeyi başta yapma sebebimiz her türlü loglanacak olması başarısız bile olsa bu veriler loglanmalı
+        var requestLog = _mapper.Map<RequestLog>(dto);//IntegrationController.cs yollanan CreateRequestLogDto türündeki dto burada maplenerek RequestLog türüne çevrilerek requestLog değişkenine atanır.
 
-        using var client = _httpClientFactory.CreateClient();
-        client.Timeout = TimeSpan.FromSeconds(10);
+        using var client = _httpClientFactory.CreateClient(); //.Net sınıfıdır ve dış sitelere istek atmak için client üretilir.
+        client.Timeout = TimeSpan.FromSeconds(10); //hedef sunucu 10 saniye içinde cevap vermezse TimeOut olur 
+
 
         //isteği oluştur (body ve headerlarla beraber)
         using var httpRequest = BuildHttpRequest(dto);
 
+        //response Time için kronometre başlatılır.
         var stopwatch = Stopwatch.StartNew();
 
         try
         {
-            var httpResponse = await client.SendAsync(httpRequest);
+            var httpResponse = await client.SendAsync(httpRequest); //await olduğu için dönüş olana kadar kod burada bekler ve SendAsync ile hedefe istek atılır ve gelen cevap httpResponse'a atılır.
+            //cevap geldiği an kronometre durdurulur.
             stopwatch.Stop();
+
 
             requestLog.Response = await ParseSuccessResponseAsync(httpResponse, stopwatch.ElapsedMilliseconds);
         }
+        //10 saniyelik TimeOut zamanı dolduğunda veya bir sorun olduğunda uygulama çökmesin diye
         catch (Exception ex)
         {
+            //kronometre durdurulur.
             stopwatch.Stop();
 
             requestLog.Response = ParseErrorResponse(ex, stopwatch.ElapsedMilliseconds);
         }
 
         //db ye kayıt
-        await _requestLogRepository.AddAsync(requestLog);
-        return _mapper.Map<RequestLogDto>(requestLog);
+        await _requestLogRepository.AddAsync(requestLog); //RequestLogRepository içindeki AddAsync ie db'ye kayıt ederiz.
+        return _mapper.Map<RequestLogDto>(requestLog); //Burada maplemeyle RequestLogDto türündeki requestLog tekrardan CreateRequestLogDto türüne döndürülür ve IntegrationController.cs tarafına return edilir (oradanda vue tarafına döneceğiz.).
     }
 
 
@@ -65,6 +73,9 @@ public class RestRequestService : IRestRequestService
         {
             request.Content = CreateHttpContent(dto);
         }
+
+        //header eklenmesi öncesi Authorization kısmının eklenmesi için çağırma
+        ApplyAuthorization(request, dto.Auth);
 
         // Header ekleme işlemi
         if (dto.RequestHeaders != null)
@@ -212,4 +223,71 @@ public class RestRequestService : IRestRequestService
             ResponseHeaders = new List<ResponseHeader>()
         };
     }
+    
+
+    private void ApplyAuthorization(HttpRequestMessage request, AuthConfigDto? auth)
+    {   
+        //burada auth gelmeme durumları için fonksiyona girmemesini sağladım.
+        if (auth == null || string.IsNullOrWhiteSpace(auth.Type) || auth.Type.Equals("none", StringComparison.OrdinalIgnoreCase))
+        {
+            return;
+        }
+
+        switch (auth.Type.ToLowerInvariant())
+        {
+            case "basic":
+                if(!string.IsNullOrEmpty(auth.Username) && !string.IsNullOrEmpty(auth.Password)) //kullanıcı adı ve şifre null mı kontrolü.
+                {
+                    //girilen kullanıcı adı ve şifreyi username:password şeklinde birleştirme için
+                    var authBytes = Encoding.UTF8.GetBytes($"{auth.Username}:{auth.Password}");
+                    //birleştirilen username ve password'u Base64 ile şifreleyip Authorization Header'a ekle. (formatın doğru olması için C# sınıfı olan AuthenticationHeaderValue kullandım.)
+                    request.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", Convert.ToBase64String(authBytes));
+                }
+                break;
+
+            case "bearer":
+            case "oauth2":
+                if (!string.IsNullOrEmpty(auth.Token))
+                {
+                    request.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", auth.Token);
+                }
+                break;
+
+            case "apikey":
+                if(!string.IsNullOrEmpty(auth.ApiKeyName) && !string.IsNullOrEmpty(auth.ApiKeyValue))
+                {
+                    if (auth.ApiKeyAddTo?.ToLower() == "query")
+                    {
+                        ApplyApiKeyToQuery(request, auth.ApiKeyName, auth.ApiKeyValue);
+                    }
+                    else
+                    {
+                        request.Headers.TryAddWithoutValidation(auth.ApiKeyName, auth.ApiKeyValue);
+                    }
+                }
+                break;
+        }   
+    }
+
+    private void ApplyApiKeyToQuery(HttpRequestMessage request, string keyName, string keyValue)
+    {
+        //gidilecek adresin olmadığı durumda çalışmaması için.
+        if(request.RequestUri == null)
+        {
+            return;
+        }
+        //URL'yi düzenlemek için UriBuilder oluştur.
+        var uriBuilder = new UriBuilder(request.RequestUri); //UriBuilder ile hatasız şekilde URL birleşimi yapılır.
+        //Mevcut query string'i alıp parse et.
+        var query = System.Web.HttpUtility.ParseQueryString(uriBuilder.Query);
+
+        //yeni parametre ekle
+        query[keyName] = keyValue;
+
+        //güncellenmiş query string'i UriBuilder'a ata
+        uriBuilder.Query = query.ToString();
+
+        //istekteki URL'yi güncelle
+        request.RequestUri = uriBuilder.Uri;
+}
 }

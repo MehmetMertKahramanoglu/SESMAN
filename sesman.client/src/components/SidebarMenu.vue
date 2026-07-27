@@ -104,7 +104,8 @@ const loadSavedRequest = (req: any) => {
       <div v-if="store.history.length === 0" class="empty-text">
         History loading...
       </div>
- 
+
+      <!-- loadRequest kısmı çalıştırılarak kaydedilen veri geri yüklenir History-->
       <div class="history-list">
          <div 
            v-for="item in store.history"  
@@ -153,7 +154,8 @@ const loadSavedRequest = (req: any) => {
              <!-- Klasör Adı -->
              <strong>{{ folder.name }}</strong> 
            </div>
-           
+
+           <!-- loadSavedRequest kısmı çalıştırılarak kaydedilen veri geri yüklenir Collection-->
          <div 
                v-for="req in folder.savedRequests" 
                :key="req.id"

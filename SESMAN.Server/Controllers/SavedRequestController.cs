@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SESMAN.Server.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]")] //sınıfın sonundaki controller'ı siler ve kalanını alır ve adresi local adres/api/SavedRequest yapar 
     [ApiController]
     public class SavedRequestController : ControllerBase
     {
@@ -40,9 +40,9 @@ namespace SESMAN.Server.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] CreateSavedRequestDto dto)
+        public async Task<IActionResult> Create([FromBody] CreateSavedRequestDto dto) //Vue tarafından gelen body kısmını al ve dto ya ata. (Buraya collectionStore kısmından yolladığım requestData dto olmuş oldu)
         {
-            if (dto == null)
+            if (dto == null) //vue tarafından gelen requestData boş gelmişse 
             {
                 return BadRequest("Boş veri gönderilemez.");
             }

@@ -24,8 +24,8 @@ namespace SESMAN.Infrastructure.Repositories
 
         public async Task AddAsync(T entity) //değer ekleme
         {
-            await _dbSet.AddAsync(entity);
-            await _context.SaveChangesAsync();
+            await _dbSet.AddAsync(entity); //burada ef verilere Added etiketi basar ve eklemeye hazır hale getirir.
+            await _context.SaveChangesAsync(); //normalde bütün Added etiketli verileri db'ye kaydetme işine yarar ama biz override ettiğimiz için AppDbContext içindeki çalışıyor.
         }
 
         public virtual async Task UpdateAsync(T entity) //değer güncelleme

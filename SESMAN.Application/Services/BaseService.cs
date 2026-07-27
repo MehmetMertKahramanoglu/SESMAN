@@ -28,9 +28,9 @@ namespace SESMAN.Application.Services
             return entity == null ? default : _mapper.Map<TDto>(entity);
         }
 
-        public async Task CreateAsync(TCreateDto dto)
+        public async Task CreateAsync(TCreateDto dto) 
         {
-            var entity = _mapper.Map<TEntity>(dto);
+            var entity = _mapper.Map<TEntity>(dto); //buraya CreateSavedRequestDto türünde gelen veriler MappingProfile kısmında SavedRequest'e dönüşür. (SavedRequestController'ın create kısmından gelinen senaryo)
             await _repository.AddAsync(entity); //burada otomatik olarak state ekleniyor. (EF tarafından)
         }
 

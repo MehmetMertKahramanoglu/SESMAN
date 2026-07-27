@@ -15,9 +15,9 @@ public class IntegrationController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> ExecuteRequest([FromBody] CreateRequestLogDto dto)
+    public async Task<IActionResult> ExecuteRequest([FromBody] CreateRequestLogDto dto) //requestStore'dan gelen payload dto'nun içine konur. 
     {
-        //url boş dönerse diye kontrol
+        //url boş dönerse veya payload'ın içi boş dönerse diye kontrol
         if (dto == null || string.IsNullOrWhiteSpace(dto.Url))
         {
             return BadRequest("URL boş olamaz");
@@ -26,7 +26,7 @@ public class IntegrationController : ControllerBase
         //gelen isteği servise gönderip hem servisi çalıştırıyorum hemde veritabanına kaydediyorum.
         var resultDto = await _restRequestService.ExecuteAndSaveRequestAsync(dto);
 
-        //işlem sonunda UI tarafına status code ve ExecutionTimeMs için dönüş yapıyorum.
+        //işlem sonunda UI tarafına status code ve ExecutionTimeMs için dönüş yapıyorum. RequestStore'a dönüş yapılır.
         return Ok(resultDto);
     }
 }

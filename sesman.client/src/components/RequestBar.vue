@@ -19,11 +19,11 @@ const methodMap: Record<string, number> = {
   'GET': 1, 'POST': 2, 'PUT': 3,'PATCH': 4, 'DELETE': 5 
 };
 
-const openSaveModal = () => {
+const openSaveModal = () => { 
   isSaveModalOpen.value = true;
 };
 
-const closeSaveModal = () => {
+const closeSaveModal = () => { //başarılı olunduğunda sonraki kullanımda değerlerin boş gelmesi için tanımlamalar.
   isSaveModalOpen.value = false;
   newRequestName.value = '';
   selectedCollectionId.value = '';
@@ -31,33 +31,48 @@ const closeSaveModal = () => {
 
 // Kaydet butonuna basıldığında çalışacak fonksiyon
 const confirmSave = async () => {
+  //klasör seçiminde veya kaydedilecek verinin adı boş bırakıldıysa uyarı verilir.
   if (!newRequestName.value || !selectedCollectionId.value) {
     alert("Please enter a name and select a folder!");
     return;
   }
 
+  //başlangıçta final body boş tanımlanır.
  let finalBody = '';
-  
-  if (store.bodyType === 'none') {
+  //body type'ına göre finalBody içeriği doldurulur.
+  if (store.bodyType === 'none')
+  { //none seçildiyse body boş gönderilmiş demektir ve boş bırakılır.
     finalBody = '';
-  } else if (store.bodyType === 'binary') {
+  }
+  else if (store.bodyType === 'binary')
+  { //requestStore (bunada RequestBody kısmında hazırlanıp geliyor) içinde Base64 formatında tutulan dosyayı final body içine atarız.
     finalBody = store.binaryContent; // Base64 dosyası
-  } else if (store.bodyType === 'form-data') {
-    finalBody = JSON.stringify(store.formDataList); // Form listesi 
-  } else if (store.bodyType === 'x-www-form-urlencoded') {
-    finalBody = JSON.stringify(store.urlEncodedList);
-  } else if (store.bodyType === 'GraphQL') {
+
+  }
+  else if (store.bodyType === 'form-data')
+  {
+    finalBody = JSON.stringify(store.formDataList); // Burada dizi olarak tutulan veriyi Json.stringify ile Json formata çeviriyoruz. (C# tarafı okuyamadığı için bu işlem yapılıyor)
+                                                    // Geçmişten tekrar yüklerken parse edilerek tekrar liste haline getirilir.
+  }
+  else if (store.bodyType === 'x-www-form-urlencoded')
+  {   
+    finalBody = JSON.stringify(store.urlEncodedList); //form-data ile aynı işlem yapılır burada
+  }
+  else if (store.bodyType === 'GraphQL') //GrahQL backend tarafına json gitmek zorundadır (yapıyısyla alakalı GraphQL tek parça bir json objesi bekliyor query ve variables kısmını)
+  {
     try {
-      finalBody = JSON.stringify({
-        query: store.graphqlQuery,
-        variables: store.graphqlVariables ? JSON.parse(store.graphqlVariables) : {}
+      finalBody = JSON.stringify({ //burada sorguyu ve değişkeni tek parça haline getiriyoruz Json şeklinde
+        query: store.graphqlQuery, //query'yi string olarak bekler
+        variables: store.graphqlVariables ? JSON.parse(store.graphqlVariables) : {} //bu kısımda direkt yapmak yerine JSON.parse yapılır GraphQL obje olarak bekler variables kısmını
       });
     } catch(e) {
-      // Eğer kullanıcı variables kısmına geçersiz bir JSON yazarsa çökmesin diye
-      finalBody = JSON.stringify({ query: store.graphqlQuery, variables: {} });
+      // Eğer kullanıcı variables kısmına geçersiz bir JSON yazarsa çökmesin diye (variables kısmına geçersiz bir şeyler yazılması durumunda parse SyntaxError verince çalışacak kısım)
+      finalBody = JSON.stringify({ query: store.graphqlQuery, variables: {} }); //variables kısmını boş göndeririz.
     }
-  } else if (store.bodyType === 'raw') {
-    finalBody = store.body;
+  }
+  else if (store.bodyType === 'raw')
+  {
+    finalBody = store.body; //raw seçildiğinde direkt finalBody içine atılır.
   }
 
   // RequestStore'daki verileri toplayıp backend'in beklediği formata çevirdim.
@@ -65,20 +80,20 @@ const confirmSave = async () => {
     name: newRequestName.value,
     collectionId: selectedCollectionId.value,
     url: store.url,
-    method: methodMap[store.method.toUpperCase()] || 0,
-    
-  
+    method: methodMap[store.method.toUpperCase()] || 1, //method bulunamazsa hata vermemesi için get atanıyor.
     body: finalBody,
     bodyType: store.bodyType, 
     
     // Header ve Parametreleri ayarlıyoruz
     savedRequestHeaders: store.requestHeaders.map(h => ({ key: h.key, value: h.value })),
-    savedRequestParameters: store.requestParameters.map(p => ({ key: p.key, value: p.value }))
+    savedRequestParameters: store.requestParameters.map(p => ({ key: p.key, value: p.value })),
+
+    auth: store.auth //authorization kısmı
   };
 
-  // Veriyi Collection Store'a gönder ve backend'e kaydet
+  // Veriyi Collection Store'a gönder ve backend'e kaydet (collectionStore kısmındaki saveNewRequest kısmına payload'da aldığımız verileri gönderiyoruz.)
   const isSuccess = await collectionStore.saveNewRequest(payload);
-  
+  //başarılı gönderim sonrası pencereyi kapatıp kullanıcıya bilgi vermek için olan kısım
   if (isSuccess) {
     alert("The template was successfully saved to the folder!");
     closeSaveModal(); // Başarılıysa pencereyi kapat
@@ -105,11 +120,12 @@ const confirmSave = async () => {
     />
 
     <!-- İsteği gönderen buton -->
+    <!-- basıldığında requestStore.ts kısmındaki sendRequest'e geçiyoruz-->
     <button class="modern-btn primary" @click="store.sendRequest()" :disabled="store.isLoading">
       {{ store.isLoading ? 'Bekleniyor...' : 'Send' }}
     </button>
-
-    <!-- Kaydet butonu -->
+    
+    <!-- Collection'a Kaydetme butonu -->
     <button class="modern-btn outline" @click="openSaveModal">
       Save
     </button>
@@ -118,6 +134,7 @@ const confirmSave = async () => {
 
   <Transition name="modal-fade">
     <!-- @click.self sayesinde arkaplana tıklayınca modal kapanır -->
+    <!-- bu kısımda isSaveModalOpen true olduğu için v-if ile çalışır ve modal-overlay ile sayfayı açar-->
     <div v-if="isSaveModalOpen" class="modal-overlay" @click.self="closeSaveModal">
       <div class="modal-content">
         
@@ -155,6 +172,8 @@ const confirmSave = async () => {
           <button class="modern-btn text-btn" @click="closeSaveModal">
             Cancel
           </button>
+
+          <!-- açılan sayfada kaydetmek istenilen klasör seçildikten ve kaydedilecek veriye isim verildikten sonra confirmSave ile devam edilir-->
           <button class="modern-btn primary shadow" @click="confirmSave">
             Save
           </button>

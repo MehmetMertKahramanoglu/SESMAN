@@ -16,5 +16,9 @@ namespace SESMAN.Application.DTOs
         public string? RawType { get; set; }
         public List<RequestHeaderDto> RequestHeaders { get; set; } = new();
         public List<RequestParameterDto> RequestParameters { get; set; } = new();
+
+        //burada HAS-A yapısı ile vue tarafında veri göndereceğim zaman paket halinde düzenli şekilde göndermeyi yaptım.
+        public AuthConfigDto? Auth { get; set; }
     }
+
 }
